@@ -1,13 +1,43 @@
 import React from 'react';
+import Image from 'next/image';
 
-export function Logo({ className = 'h-8 w-8' }: { className?: string }) {
+interface LogoProps {
+  className?: string;
+  variant?: 'png' | 'svg';
+  alt?: string;
+  priority?: boolean;
+}
+
+export function Logo({ 
+  className = 'h-8 w-8', 
+  variant = 'svg',
+  alt = 'PokeGrade Nederland Logo',
+  priority = false
+}: LogoProps) {
+  if (variant === 'png') {
+    return (
+      <div className={`${className} relative flex items-center justify-center`}>
+        <Image
+          src="/assets/img/logo.png"
+          alt={alt}
+          width={1056}
+          height={156}
+          className="object-contain w-full h-full"
+          priority={priority}
+        />
+      </div>
+    );
+  }
+
+  // SVG variant
   return (
     <div className={`${className} flex items-center justify-center`}>
       <svg
         viewBox="0 0 40 40"
-        fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-full"
+        role="img"
+        aria-label={alt}
       >
         {/* Outer circle */}
         <circle

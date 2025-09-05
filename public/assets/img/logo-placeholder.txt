@@ -1,0 +1,11 @@
+# Logo Placeholder
+
+Please replace this file with your actual logo.png file.
+
+Recommended specifications:
+- Format: PNG with transparent background
+- Dimensions: 512x512px or 1024x1024px (square)
+- File size: Under 100KB for optimal loading
+- High resolution for crisp display on all devices
+
+The logo will be automatically optimized by Next.js Image component.

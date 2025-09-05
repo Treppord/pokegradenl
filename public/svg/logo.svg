@@ -1,0 +1,16 @@
+<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer circle -->
+  <circle cx="20" cy="20" r="18" fill="#dc3545"/>
+  
+  <!-- Inner white circle -->
+  <circle cx="20" cy="20" r="14" fill="white"/>
+  
+  <!-- Magnifying glass lens -->
+  <circle cx="18" cy="18" r="8" stroke="#3b82f6" stroke-width="2" fill="none"/>
+  
+  <!-- Magnifying glass handle -->
+  <line x1="24" y1="24" x2="28" y2="28" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Central dot for precision -->
+  <circle cx="18" cy="18" r="2" fill="#dc3545"/>
+</svg>
