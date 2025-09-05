@@ -1,49 +1,40 @@
-import React from 'react';
-import { Layout } from '@/components/layout/Layout';
-import ContactForm from './ContactForm';
-import FAQSection from './FAQSection';
-import { Button } from '@/components/ui/Button';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import React from "react";
+import { Layout } from "@/components/layout/Layout";
+import ContactForm from "./ContactForm";
+import FAQSection from "./FAQSection";
+import { Button } from "@/components/ui/Button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import {
   EnvelopeIcon,
   PhoneIcon,
   MapPinIcon,
   ClockIcon,
-  QuestionMarkCircleIcon
-} from '@heroicons/react/24/outline';
-import type { Metadata } from 'next';
+  QuestionMarkCircleIcon,
+} from "@heroicons/react/24/outline";
+import type { Metadata } from "next";
 
 const contactInfo = [
   {
     icon: EnvelopeIcon,
-    label: 'Email',
-    value: 'support@pokegrade.nl',
-    description: 'General inquiries and support'
-  },
-  {
-    icon: PhoneIcon,
-    label: 'Phone',
-    value: '+31 20 123 4567',
-    description: 'Mon-Fri 9:00-17:00 CET'
+    label: "Email",
+    value: "contact@pokegrade.nl",
+    description: "General inquiries and support",
   },
   {
     icon: MapPinIcon,
-    label: 'Address',
-    value: 'Groenland 125, 1011 RM Amsterdam',
-    description: 'By appointment only'
+    label: "Address",
+    value: "3014GH Rotterdam",
+    description: "By appointment only",
   },
   {
     icon: ClockIcon,
-    label: 'Business Hours',
-    value: 'Monday - Friday 9:00-17:00',
-    description: 'CET/CEST timezone'
-  }
+    label: "Business Hours",
+    value: "Monday - Friday 9:00-17:00",
+    description: "CET/CEST timezone",
+  },
 ];
 
-
-
 export default function ContactPage() {
-
   return (
     <Layout>
       {/* Header */}
@@ -54,7 +45,8 @@ export default function ContactPage() {
               Contact Us
             </h1>
             <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-              Have questions about our grading services? Our expert team is here to help.
+              Have questions about our grading services? Our expert team is here
+              to help.
             </p>
           </div>
         </div>
@@ -79,9 +71,15 @@ export default function ContactPage() {
                         <info.icon className="h-6 w-6 text-primary-500" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-neutral-900">{info.label}</h3>
-                        <p className="text-neutral-800 font-medium">{info.value}</p>
-                        <p className="text-sm text-neutral-600">{info.description}</p>
+                        <h3 className="font-semibold text-neutral-900">
+                          {info.label}
+                        </h3>
+                        <p className="text-neutral-800 font-medium">
+                          {info.value}
+                        </p>
+                        <p className="text-sm text-neutral-600">
+                          {info.description}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -125,16 +123,13 @@ export default function ContactPage() {
                 Still Need Help?
               </h3>
               <p className="text-neutral-700 mb-6 max-w-2xl mx-auto">
-                Can't find what you're looking for? Our support team is available Monday through 
-                Friday to help with any questions about our grading services.
+                Can't find what you're looking for? Our support team is
+                available Monday through Friday to help with any questions about
+                our grading services.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button>
-                  Email Support Team
-                </Button>
-                <Button variant="outline">
-                  Schedule a Call
-                </Button>
+                <Button>Email Support Team</Button>
+                <Button variant="outline">Schedule a Call</Button>
               </div>
             </CardContent>
           </Card>
@@ -145,7 +140,14 @@ export default function ContactPage() {
 }
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: 'Contact PokeGrade Nederland for questions about our Pokémon card grading services. View our FAQ, send us a message, or find our contact information.',
-  keywords: ['contact pokegrade', 'grading support', 'pokemon card help', 'customer service', 'grading questions'],
+  title: "Contact Us",
+  description:
+    "Contact PokeGrade Nederland for questions about our Pokémon card grading services. View our FAQ, send us a message, or find our contact information.",
+  keywords: [
+    "contact pokegrade",
+    "grading support",
+    "pokemon card help",
+    "customer service",
+    "grading questions",
+  ],
 };
