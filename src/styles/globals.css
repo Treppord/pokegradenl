@@ -20,23 +20,23 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md;
+    @apply bg-primary-500 hover:bg-primary-600 dark:bg-dark-gradient-start dark:hover:bg-dark-gradient-start/90 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md;
   }
   
   .btn-secondary {
-    @apply bg-secondary-500 hover:bg-secondary-600 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md;
+    @apply bg-secondary-500 hover:bg-secondary-600 dark:bg-dark-gradient-end dark:hover:bg-dark-gradient-end/90 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md;
   }
   
   .btn-outline {
-    @apply border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white font-medium px-6 py-3 rounded-lg transition-all duration-200;
+    @apply border-2 border-primary-500 dark:border-dark-gradient-start text-primary-500 dark:text-dark-gradient-start hover:bg-primary-500 dark:hover:bg-dark-gradient-start hover:text-white font-medium px-6 py-3 rounded-lg transition-all duration-200;
   }
   
   .input-field {
-    @apply w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all duration-200;
+    @apply w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 dark:focus:ring-dark-gradient-start focus:border-transparent outline-none transition-all duration-200;
   }
   
   .card {
-    @apply bg-white rounded-xl shadow-card hover:shadow-card-hover transition-shadow duration-300 p-6;
+    @apply bg-white dark:bg-neutral-800 rounded-xl shadow-card hover:shadow-card-hover transition-shadow duration-300 p-6;
   }
   
   .container-custom {
@@ -46,6 +46,6 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-dark-gradient-start dark:to-dark-gradient-end bg-clip-text text-transparent;
   }
 }

@@ -47,13 +47,13 @@ export default function ContactPage() {
   return (
     <Layout>
       {/* Header */}
-      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-12">
+      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-dark-gradient-start dark:to-dark-gradient-end py-12">
         <div className="container-custom">
           <div className="text-center">
-            <h1 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
+            <h1 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 dark:text-white mb-4">
               Contact Us
             </h1>
-            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+            <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
               Have questions about our grading services? Our expert team is here to help.
             </p>
           </div>
@@ -75,13 +75,13 @@ export default function ContactPage() {
                 <div className="space-y-6">
                   {contactInfo.map((info) => (
                     <div key={info.label} className="flex items-start">
-                      <div className="flex-shrink-0 w-12 h-12 bg-primary-50 rounded-lg flex items-center justify-center mr-4">
-                        <info.icon className="h-6 w-6 text-primary-500" />
+                      <div className="flex-shrink-0 w-12 h-12 bg-primary-50 dark:bg-neutral-700 rounded-lg flex items-center justify-center mr-4">
+                        <info.icon className="h-6 w-6 text-primary-500 dark:text-primary-400" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-neutral-900">{info.label}</h3>
-                        <p className="text-neutral-800 font-medium">{info.value}</p>
-                        <p className="text-sm text-neutral-600">{info.description}</p>
+                        <h3 className="font-semibold text-neutral-900 dark:text-white">{info.label}</h3>
+                        <p className="text-neutral-800 dark:text-neutral-300 font-medium">{info.value}</p>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400">{info.description}</p>
                       </div>
                     </div>
                   ))}
@@ -119,12 +119,12 @@ export default function ContactPage() {
 
         {/* Additional Support */}
         <div className="mt-20">
-          <Card className="bg-gradient-to-r from-primary-50 to-secondary-50 border-0">
+          <Card className="bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-dark-gradient-start dark:to-dark-gradient-end border-0">
             <CardContent className="text-center py-12">
-              <h3 className="text-2xl font-bold text-neutral-900 mb-4">
+              <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
                 Still Need Help?
               </h3>
-              <p className="text-neutral-700 mb-6 max-w-2xl mx-auto">
+              <p className="text-neutral-700 dark:text-neutral-300 mb-6 max-w-2xl mx-auto">
                 Can't find what you're looking for? Our support team is available Monday through 
                 Friday to help with any questions about our grading services.
               </p>

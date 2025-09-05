@@ -116,20 +116,20 @@ export default function TrackPage() {
     } else if (current) {
       return <ClockIcon className="h-6 w-6 text-primary-500 animate-pulse" />;
     } else {
-      return <div className="h-6 w-6 rounded-full border-2 border-neutral-300"></div>;
+      return <div className="h-6 w-6 rounded-full border-2 border-neutral-300 dark:border-neutral-600"></div>;
     }
   };
 
   return (
     <Layout>
       {/* Header */}
-      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-12">
+      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-dark-gradient-start dark:to-dark-gradient-end py-12">
         <div className="container-custom">
           <div className="text-center">
-            <h1 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
+            <h1 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 dark:text-white mb-4">
               Track Your Submission
             </h1>
-            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+            <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
               Enter your submission ID to get real-time updates on your card grading progress.
             </p>
           </div>
@@ -138,9 +138,9 @@ export default function TrackPage() {
 
       <div className="container-custom py-12">
         {/* Search Form */}
-        <Card className="max-w-2xl mx-auto mb-12">
+        <Card className="max-w-2xl mx-auto mb-12 dark:bg-neutral-800 dark:border-neutral-700">
           <CardHeader>
-            <CardTitle className="flex items-center">
+            <CardTitle className="flex items-center dark:text-white">
               <MagnifyingGlassIcon className="h-6 w-6 mr-2" />
               Find Your Submission
             </CardTitle>
@@ -172,9 +172,9 @@ export default function TrackPage() {
         {trackingData && (
           <div className="space-y-8">
             {/* Status Overview */}
-            <Card>
+            <Card className="dark:bg-neutral-800 dark:border-neutral-700">
               <CardHeader>
-                <CardTitle>Submission {trackingData.id}</CardTitle>
+                <CardTitle className="dark:text-white">Submission {trackingData.id}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -182,28 +182,28 @@ export default function TrackPage() {
                     <div className="text-2xl font-bold text-primary-500">
                       {trackingData.currentStep}/{trackingData.totalSteps}
                     </div>
-                    <p className="text-neutral-600">Steps Completed</p>
+                    <p className="text-neutral-600 dark:text-neutral-300">Steps Completed</p>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-neutral-900 capitalize">
+                    <div className="text-2xl font-bold text-neutral-900 dark:text-white capitalize">
                       {trackingData.status.replace('-', ' ')}
                     </div>
-                    <p className="text-neutral-600">Current Status</p>
+                    <p className="text-neutral-600 dark:text-neutral-300">Current Status</p>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-secondary-500">
                       {new Date(trackingData.estimatedCompletion).toLocaleDateString()}
                     </div>
-                    <p className="text-neutral-600">Estimated Completion</p>
+                    <p className="text-neutral-600 dark:text-neutral-300">Estimated Completion</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Progress Timeline */}
-            <Card>
+            <Card className="dark:bg-neutral-800 dark:border-neutral-700">
               <CardHeader>
-                <CardTitle>Progress Timeline</CardTitle>
+                <CardTitle className="dark:text-white">Progress Timeline</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="relative">
@@ -215,24 +215,24 @@ export default function TrackPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
                           <h4 className={`font-medium ${
-                            event.completed || event.current ? 'text-neutral-900' : 'text-neutral-500'
+                            event.completed || event.current ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
                           }`}>
                             {event.title}
                           </h4>
                           <span className={`text-sm ${
-                            event.completed || event.current ? 'text-neutral-600' : 'text-neutral-400'
+                            event.completed || event.current ? 'text-neutral-600 dark:text-neutral-300' : 'text-neutral-400 dark:text-neutral-500'
                           }`}>
                             {formatDate(event.timestamp)}
                           </span>
                         </div>
                         <p className={`text-sm mt-1 ${
-                          event.completed || event.current ? 'text-neutral-600' : 'text-neutral-400'
+                          event.completed || event.current ? 'text-neutral-600 dark:text-neutral-300' : 'text-neutral-400 dark:text-neutral-500'
                         }`}>
                           {event.description}
                         </p>
                         {event.current && (
                           <div className="mt-2">
-                            <div className="bg-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs inline-block">
+                            <div className="bg-primary-50 dark:bg-neutral-700 text-primary-700 dark:text-primary-300 px-3 py-1 rounded-full text-xs inline-block">
                               In Progress
                             </div>
                           </div>
@@ -240,7 +240,7 @@ export default function TrackPage() {
                       </div>
                       {index < trackingData.timeline.length - 1 && (
                         <div className={`absolute left-3 mt-8 h-8 w-px ${
-                          event.completed ? 'bg-success' : 'bg-neutral-300'
+                          event.completed ? 'bg-success' : 'bg-neutral-300 dark:bg-neutral-600'
                         }`} style={{ top: `${(index * 112) + 24}px` }}></div>
                       )}
                     </div>
@@ -250,19 +250,19 @@ export default function TrackPage() {
             </Card>
 
             {/* Card Status */}
-            <Card>
+            <Card className="dark:bg-neutral-800 dark:border-neutral-700">
               <CardHeader>
-                <CardTitle>Card Status</CardTitle>
+                <CardTitle className="dark:text-white">Card Status</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {trackingData.cards.map((card: any, index: number) => (
-                    <div key={index} className="flex items-center justify-between p-4 bg-neutral-50 rounded-lg">
+                    <div key={index} className="flex items-center justify-between p-4 bg-neutral-50 dark:bg-neutral-700 rounded-lg">
                       <div>
-                        <h4 className="font-medium text-neutral-900">
+                        <h4 className="font-medium text-neutral-900 dark:text-white">
                           {card.name}
                         </h4>
-                        <p className="text-sm text-neutral-600">
+                        <p className="text-sm text-neutral-600 dark:text-neutral-300">
                           {card.set} #{card.cardNumber}
                         </p>
                       </div>
@@ -272,14 +272,14 @@ export default function TrackPage() {
                             <div className="text-lg font-bold text-success">
                               Grade: {card.grade}
                             </div>
-                            <div className="text-sm text-neutral-600">Completed</div>
+                            <div className="text-sm text-neutral-600 dark:text-neutral-300">Completed</div>
                           </div>
                         ) : (
                           <div>
                             <div className="text-primary-500 font-medium capitalize">
                               {card.status.replace('-', ' ')}
                             </div>
-                            <div className="text-sm text-neutral-600">In Progress</div>
+                            <div className="text-sm text-neutral-600 dark:text-neutral-300">In Progress</div>
                           </div>
                         )}
                       </div>
@@ -290,12 +290,12 @@ export default function TrackPage() {
             </Card>
 
             {/* Contact Support */}
-            <Card className="bg-neutral-50">
+            <Card className="bg-neutral-50 dark:bg-neutral-800 dark:border-neutral-700">
               <CardContent className="text-center py-8">
-                <h3 className="text-lg font-semibold text-neutral-900 mb-2">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
                   Questions about your submission?
                 </h3>
-                <p className="text-neutral-600 mb-4">
+                <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                   Our support team is here to help with any questions or concerns.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -315,40 +315,40 @@ export default function TrackPage() {
         {!trackingData && (
           <div className="mt-16">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-neutral-900 mb-4">
+              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
                 Need Help Finding Your Submission?
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="text-center">
+              <Card className="text-center dark:bg-neutral-800 dark:border-neutral-700">
                 <CardContent className="pt-6">
                   <DocumentCheckIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-                  <h3 className="font-semibold text-neutral-900 mb-2">
+                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">
                     Check Your Email
                   </h3>
-                  <p className="text-neutral-600 text-sm">
+                  <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                     Your submission ID was sent to your email when you submitted your order.
                   </p>
                 </CardContent>
               </Card>
-              <Card className="text-center">
+              <Card className="text-center dark:bg-neutral-800 dark:border-neutral-700">
                 <CardContent className="pt-6">
                   <TruckIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-                  <h3 className="font-semibold text-neutral-900 mb-2">
+                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">
                     Check Shipping Label
                   </h3>
-                  <p className="text-neutral-600 text-sm">
+                  <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                     The submission ID may also be printed on your shipping label or receipt.
                   </p>
                 </CardContent>
               </Card>
-              <Card className="text-center">
+              <Card className="text-center dark:bg-neutral-800 dark:border-neutral-700">
                 <CardContent className="pt-6">
                   <ClockIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-                  <h3 className="font-semibold text-neutral-900 mb-2">
+                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">
                     Contact Support
                   </h3>
-                  <p className="text-neutral-600 text-sm">
+                  <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                     Our team can help you locate your submission using your email or phone number.
                   </p>
                 </CardContent>

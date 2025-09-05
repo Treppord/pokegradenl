@@ -25,10 +25,10 @@ export function Button({
   const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variantClasses = {
-    primary: 'bg-primary-500 hover:bg-primary-600 text-white shadow-sm hover:shadow-md focus:ring-primary-500',
-    secondary: 'bg-secondary-500 hover:bg-secondary-600 text-white shadow-sm hover:shadow-md focus:ring-secondary-500',
-    outline: 'border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white focus:ring-primary-500',
-    ghost: 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus:ring-neutral-500',
+    primary: 'bg-primary-500 hover:bg-primary-600 dark:bg-dark-gradient-start dark:hover:bg-dark-gradient-start/90 text-white shadow-sm hover:shadow-md focus:ring-primary-500 dark:focus:ring-dark-gradient-start',
+    secondary: 'bg-secondary-500 hover:bg-secondary-600 dark:bg-dark-gradient-end dark:hover:bg-dark-gradient-end/90 text-white shadow-sm hover:shadow-md focus:ring-secondary-500 dark:focus:ring-dark-gradient-end',
+    outline: 'border-2 border-primary-500 dark:border-dark-gradient-start text-primary-500 dark:text-dark-gradient-start hover:bg-primary-500 dark:hover:bg-dark-gradient-start hover:text-white focus:ring-primary-500 dark:focus:ring-dark-gradient-start',
+    ghost: 'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:text-neutral-900 dark:hover:text-white focus:ring-neutral-500',
   };
   
   const sizeClasses = {

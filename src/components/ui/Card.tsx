@@ -14,7 +14,7 @@ export function Card({
   padding = 'md', 
   hover = true 
 }: CardProps) {
-  const baseClasses = 'bg-white rounded-xl shadow-card transition-shadow duration-300';
+  const baseClasses = 'bg-white dark:bg-neutral-800 rounded-xl shadow-card transition-shadow duration-300';
   const hoverClasses = hover ? 'hover:shadow-card-hover' : '';
   
   const paddingClasses = {
@@ -50,7 +50,7 @@ interface CardTitleProps {
 
 export function CardTitle({ children, className }: CardTitleProps) {
   return (
-    <h3 className={clsx('text-xl font-semibold text-neutral-900', className)}>
+    <h3 className={clsx('text-xl font-semibold text-neutral-900 dark:text-white', className)}>
       {children}
     </h3>
   );
@@ -63,7 +63,7 @@ interface CardContentProps {
 
 export function CardContent({ children, className }: CardContentProps) {
   return (
-    <div className={clsx('text-neutral-600', className)}>
+    <div className={clsx('text-neutral-600 dark:text-neutral-300', className)}>
       {children}
     </div>
   );
@@ -76,7 +76,7 @@ interface CardFooterProps {
 
 export function CardFooter({ children, className }: CardFooterProps) {
   return (
-    <div className={clsx('mt-6 pt-4 border-t border-neutral-100', className)}>
+    <div className={clsx('mt-6 pt-4 border-t border-neutral-100 dark:border-neutral-700', className)}>
       {children}
     </div>
   );

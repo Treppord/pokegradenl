@@ -215,14 +215,14 @@ export default function ServicesPage() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary-50 to-secondary-50 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-secondary-500/5"></div>
+      <section className="relative bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-dark-gradient-start dark:to-dark-gradient-end overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-secondary-500/5 dark:from-dark-gradient-start/20 dark:to-dark-gradient-end/20"></div>
         <div className="container-custom py-16 lg:py-24 relative">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl lg:text-5xl font-heading font-bold text-neutral-900 mb-6 leading-tight">
+            <h1 className="text-4xl lg:text-5xl font-heading font-bold text-neutral-900 dark:text-white mb-6 leading-tight">
               Professional <span className="text-gradient">Grading Services</span>
             </h1>
-            <p className="text-lg lg:text-xl text-neutral-600 mb-8 leading-relaxed">
+            <p className="text-lg lg:text-xl text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed">
               Choose from our comprehensive grading tiers designed for every collector's needs. 
               From budget-friendly authentication to premium express service with detailed analysis.
             </p>
@@ -243,13 +243,13 @@ export default function ServicesPage() {
       </section>
 
       {/* Pricing Tiers */}
-      <section id="pricing" className="py-20 bg-white">
+      <section id="pricing" className="py-20 bg-white dark:bg-dark-bg">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 dark:text-white mb-4">
               Choose Your Grading Tier
             </h2>
-            <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
+            <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto">
               Each tier offers different features and turnaround times to match your specific needs and budget. 
               All services include our professional 10-point grading scale and tamper-evident protection.
             </p>
@@ -259,7 +259,7 @@ export default function ServicesPage() {
             {pricingTiers.map((tier) => (
               <Card 
                 key={tier.name} 
-                className={`text-center relative ${
+                className={`text-center relative dark:bg-neutral-800 dark:border-neutral-700 ${
                   tier.popular 
                     ? 'ring-2 ring-primary-500 transform lg:scale-105 shadow-xl' 
                     : 'hover:shadow-lg'
@@ -275,7 +275,7 @@ export default function ServicesPage() {
                 )}
                 
                 <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-neutral-900">
+                  <CardTitle className="text-2xl font-bold text-neutral-900 dark:text-white">
                     {tier.name}
                   </CardTitle>
                   <div className="mt-4">
@@ -283,7 +283,7 @@ export default function ServicesPage() {
                       <span className="text-5xl font-bold text-primary-500">
                         {tier.price}
                       </span>
-                      <span className="text-neutral-600 ml-2">per card</span>
+                      <span className="text-neutral-600 dark:text-neutral-300 ml-2">per card</span>
                     </div>
                     {tier.originalPrice && (
                       <div className="mt-1">
@@ -297,11 +297,11 @@ export default function ServicesPage() {
                     )}
                   </div>
                   <div className="mt-4 space-y-2">
-                    <div className="flex items-center justify-center text-neutral-600">
+                    <div className="flex items-center justify-center text-neutral-600 dark:text-neutral-300">
                       <ClockIcon className="h-5 w-5 mr-2" />
                       <span>{tier.turnaround}</span>
                     </div>
-                    <div className="flex items-center justify-center text-neutral-600">
+                    <div className="flex items-center justify-center text-neutral-600 dark:text-neutral-300">
                       <CurrencyEuroIcon className="h-5 w-5 mr-2" />
                       <span>Max value: {tier.maxValue}</span>
                     </div>
@@ -311,12 +311,12 @@ export default function ServicesPage() {
                 <CardContent>
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-semibold text-neutral-900 mb-3 text-left">Included Features:</h4>
+                      <h4 className="font-semibold text-neutral-900 dark:text-white mb-3 text-left">Included Features:</h4>
                       <ul className="space-y-2 text-left">
                         {tier.features.map((feature, index) => (
                           <li key={index} className="flex items-start">
                             <CheckCircleIcon className="h-5 w-5 text-success flex-shrink-0 mt-0.5 mr-3" />
-                            <span className="text-sm text-neutral-700">{feature}</span>
+                            <span className="text-sm text-neutral-700 dark:text-neutral-300">{feature}</span>
                           </li>
                         ))}
                       </ul>
@@ -324,14 +324,14 @@ export default function ServicesPage() {
                     
                     {tier.limitations.length > 0 && (
                       <div>
-                        <h4 className="font-semibold text-neutral-900 mb-3 text-left">Limitations:</h4>
+                        <h4 className="font-semibold text-neutral-900 dark:text-white mb-3 text-left">Limitations:</h4>
                         <ul className="space-y-2 text-left">
                           {tier.limitations.map((limitation, index) => (
                             <li key={index} className="flex items-start">
                               <div className="h-5 w-5 flex-shrink-0 mt-0.5 mr-3">
                                 <div className="h-2 w-2 bg-neutral-400 rounded-full mt-1.5"></div>
                               </div>
-                              <span className="text-sm text-neutral-600">{limitation}</span>
+                              <span className="text-sm text-neutral-600 dark:text-neutral-300">{limitation}</span>
                             </li>
                           ))}
                         </ul>
@@ -342,7 +342,7 @@ export default function ServicesPage() {
                 
                 <CardFooter>
                   <div className="text-center">
-                    <p className="text-sm text-neutral-600 mb-4 italic">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4 italic">
                       {tier.recommendation}
                     </p>
                     <Link href="/submit" className="w-full block">
@@ -360,12 +360,12 @@ export default function ServicesPage() {
             ))}
           </div>
 
-          <div className="bg-neutral-50 rounded-2xl p-8 text-center">
+          <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8 text-center">
             <div className="max-w-2xl mx-auto">
-              <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+              <h3 className="text-xl font-semibold text-neutral-900 dark:text-white mb-4">
                 Need Something Different?
               </h3>
-              <p className="text-neutral-600 mb-6">
+              <p className="text-neutral-600 dark:text-neutral-300 mb-6">
                 Have cards worth more than €10,000 or need a custom service? 
                 Contact us for personalized pricing and white-glove service options.
               </p>
@@ -380,13 +380,13 @@ export default function ServicesPage() {
       </section>
 
       {/* Grading Standards */}
-      <section className="py-20 bg-neutral-50">
+      <section className="py-20 bg-neutral-50 dark:bg-neutral-800">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 dark:text-white mb-4">
               Our Grading Standards
             </h2>
-            <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
+            <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto">
               We use the industry-standard 10-point grading scale with precise criteria 
               for each grade. Our certified experts ensure consistent and accurate grading.
             </p>
@@ -394,18 +394,18 @@ export default function ServicesPage() {
 
           {/* Grading Scale */}
           <div className="mb-16">
-            <h3 className="text-2xl font-heading font-semibold text-neutral-900 mb-8 text-center">
+            <h3 className="text-2xl font-heading font-semibold text-neutral-900 dark:text-white mb-8 text-center">
               10-Point Grading Scale
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {gradingStandards.map((grade) => (
-                <Card key={grade.grade} className={`${grade.bgColor} ${grade.borderColor} border-2`}>
+                <Card key={grade.grade} className={`${grade.bgColor} ${grade.borderColor} dark:bg-neutral-800 dark:border-neutral-700 border-2`}>
                   <CardContent>
                     <div className="text-center">
                       <h4 className={`text-lg font-bold ${grade.color} mb-2`}>
                         {grade.grade}
                       </h4>
-                      <p className="text-sm text-neutral-700">
+                      <p className="text-sm text-neutral-700 dark:text-neutral-300">
                         {grade.description}
                       </p>
                     </div>
@@ -417,26 +417,26 @@ export default function ServicesPage() {
 
           {/* Subgrade Categories */}
           <div>
-            <h3 className="text-2xl font-heading font-semibold text-neutral-900 mb-8 text-center">
+            <h3 className="text-2xl font-heading font-semibold text-neutral-900 dark:text-white mb-8 text-center">
               Subgrade Analysis
             </h3>
-            <p className="text-center text-neutral-600 mb-10 max-w-3xl mx-auto">
+            <p className="text-center text-neutral-600 dark:text-neutral-300 mb-10 max-w-3xl mx-auto">
               Standard and Premium tiers include detailed subgrade analysis across four key categories. 
               Each subgrade is scored individually to provide comprehensive card evaluation.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {subgradeCategories.map((category) => (
-                <Card key={category.name} className="text-center">
+                <Card key={category.name} className="text-center dark:bg-neutral-800 dark:border-neutral-700">
                   <CardContent>
                     <category.icon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-                    <h4 className="text-lg font-semibold text-neutral-900 mb-3">
+                    <h4 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
                       {category.name}
                     </h4>
-                    <p className="text-neutral-600 text-sm mb-3">
+                    <p className="text-neutral-600 dark:text-neutral-300 text-sm mb-3">
                       {category.description}
                     </p>
-                    <p className="text-neutral-500 text-xs">
+                    <p className="text-neutral-500 dark:text-neutral-400 text-xs">
                       {category.details}
                     </p>
                   </CardContent>
@@ -448,62 +448,62 @@ export default function ServicesPage() {
       </section>
 
       {/* Authentication Process */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-dark-bg">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 dark:text-white mb-4">
               Authentication Process
             </h2>
-            <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
+            <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto">
               Every card undergoes rigorous authentication before grading. Our multi-step process 
               ensures only genuine cards receive our certification.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center">
+            <Card className="text-center dark:bg-neutral-800 dark:border-neutral-700">
               <CardContent>
                 <MagnifyingGlassIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
                   Visual Inspection
                 </h3>
-                <p className="text-neutral-600 text-sm">
+                <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                   Expert examination of card stock, print quality, and design elements
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center">
+            <Card className="text-center dark:bg-neutral-800 dark:border-neutral-700">
               <CardContent>
                 <CameraIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
                   Advanced Scanning
                 </h3>
-                <p className="text-neutral-600 text-sm">
+                <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                   High-resolution digital analysis and UV light authentication
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center">
+            <Card className="text-center dark:bg-neutral-800 dark:border-neutral-700">
               <CardContent>
                 <DocumentTextIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
                   Database Verification
                 </h3>
-                <p className="text-neutral-600 text-sm">
+                <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                   Cross-reference with comprehensive database of known cards and variations
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center">
+            <Card className="text-center dark:bg-neutral-800 dark:border-neutral-700">
               <CardContent>
                 <LockClosedIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
                   Secure Encapsulation
                 </h3>
-                <p className="text-neutral-600 text-sm">
+                <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                   Tamper-evident protective slab with unique certification number
                 </p>
               </CardContent>
@@ -513,27 +513,27 @@ export default function ServicesPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-neutral-50">
+      <section className="py-20 bg-neutral-50 dark:bg-neutral-800">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 dark:text-white mb-4">
               Frequently Asked Questions
             </h2>
-            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+            <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
               Have questions about our grading services? Find answers to common questions below.
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto space-y-6">
             {faqs.map((faq, index) => (
-              <Card key={index} className="p-6">
+              <Card key={index} className="p-6 dark:bg-neutral-800 dark:border-neutral-700">
                 <div className="flex items-start">
                   <QuestionMarkCircleIcon className="h-6 w-6 text-primary-500 flex-shrink-0 mt-1 mr-4" />
                   <div>
-                    <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
                       {faq.question}
                     </h3>
-                    <p className="text-neutral-600 leading-relaxed">
+                    <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
@@ -543,7 +543,7 @@ export default function ServicesPage() {
           </div>
 
           <div className="text-center mt-12">
-            <p className="text-neutral-600 mb-6">
+            <p className="text-neutral-600 dark:text-neutral-300 mb-6">
               Don't see your question answered?
             </p>
             <Link href="/contact">
@@ -556,7 +556,7 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-500 to-secondary-500">
+      <section className="py-20 bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-dark-gradient-start dark:to-dark-gradient-end">
         <div className="container-custom text-center">
           <h2 className="text-3xl lg:text-4xl font-heading font-bold text-white mb-6">
             Ready to Grade Your Cards?

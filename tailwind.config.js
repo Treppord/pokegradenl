@@ -5,6 +5,7 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -48,6 +49,10 @@ module.exports = {
         success: '#10b981',
         warning: '#f59e0b',
         error: '#ef4444',
+        // Dark mode colors
+        'dark-bg': '#1f2937', // Footer dark gray
+        'dark-gradient-start': '#10a7d3', // Dark mode gradient cyan
+        'dark-gradient-end': '#74cf4f',   // Dark mode gradient green
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

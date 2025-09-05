@@ -91,13 +91,13 @@ export default function AboutPage() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-20">
+      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-dark-gradient-start dark:to-dark-gradient-end py-20">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl lg:text-5xl font-heading font-bold text-neutral-900 mb-6">
+            <h1 className="text-4xl lg:text-5xl font-heading font-bold text-neutral-900 dark:text-white mb-6">
               About PokeGrade Nederland
             </h1>
-            <p className="text-xl text-neutral-600 leading-relaxed">
+            <p className="text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed">
               Founded by passionate collectors, PokeGrade Nederland brings professional card 
               grading services to the Netherlands, combining cutting-edge technology with 
               decades of expertise to preserve and authenticate your most treasured Pokémon cards.
@@ -107,14 +107,14 @@ export default function AboutPage() {
       </section>
 
       {/* Our Story */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-dark-bg">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-heading font-bold text-neutral-900 mb-6">
+              <h2 className="text-3xl font-heading font-bold text-neutral-900 dark:text-white mb-6">
                 Our Story
               </h2>
-              <div className="space-y-4 text-neutral-700">
+              <div className="space-y-4 text-neutral-700 dark:text-neutral-300">
                 <p>
                   PokeGrade Nederland was born from a simple observation: Dutch collectors 
                   deserved access to world-class card grading services without the hassle 
@@ -135,7 +135,7 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="relative">
-              <div className="bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl h-80 flex items-center justify-center">
+              <div className="bg-gradient-to-br from-primary-500 to-secondary-500 dark:from-dark-gradient-start dark:to-dark-gradient-end rounded-2xl h-80 flex items-center justify-center">
                 <div className="text-center text-white">
                   <BuildingOfficeIcon className="h-20 w-20 mx-auto mb-4" />
                   <p className="text-lg font-semibold">Est. 2023</p>
@@ -148,25 +148,25 @@ export default function AboutPage() {
       </section>
 
       {/* Our Values */}
-      <section className="py-20 bg-neutral-50">
+      <section className="py-20 bg-neutral-50 dark:bg-neutral-800">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-heading font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl font-heading font-bold text-neutral-900 dark:text-white mb-4">
               Our Values
             </h2>
-            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+            <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
               These core principles guide every decision we make and every service we provide.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value) => (
-              <Card key={value.title} className="text-center h-full">
+              <Card key={value.title} className="text-center h-full dark:bg-neutral-800 dark:border-neutral-700">
                 <CardContent className="pt-8">
                   <value.icon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-neutral-900 mb-3">
+                  <h3 className="text-xl font-semibold text-neutral-900 dark:text-white mb-3">
                     {value.title}
                   </h3>
-                  <p className="text-neutral-600 text-sm leading-relaxed">
+                  <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed">
                     {value.description}
                   </p>
                 </CardContent>
@@ -177,13 +177,13 @@ export default function AboutPage() {
       </section>
 
       {/* Technology & Process */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-dark-bg">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-heading font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl font-heading font-bold text-neutral-900 dark:text-white mb-4">
               Our Technology & Process
             </h2>
-            <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
+            <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto">
               We combine advanced imaging technology with human expertise to provide 
               the most accurate and reliable grading service in the Netherlands.
             </p>
@@ -191,37 +191,37 @@ export default function AboutPage() {
 
           {/* Technology Overview */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-            <Card>
+            <Card className="dark:bg-neutral-800 dark:border-neutral-700">
               <CardContent className="text-center pt-8">
                 <CpuChipIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
                   Advanced Imaging
                 </h3>
-                <p className="text-neutral-600 text-sm">
+                <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                   High-resolution scanners capture microscopic details to detect 
                   counterfeits and assess card condition with unprecedented accuracy.
                 </p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="dark:bg-neutral-800 dark:border-neutral-700">
               <CardContent className="text-center pt-8">
                 <UserGroupIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
                   Expert Graders
                 </h3>
-                <p className="text-neutral-600 text-sm">
+                <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                   Certified professionals with decades of experience ensure 
                   consistent, accurate grading using industry-standard criteria.
                 </p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="dark:bg-neutral-800 dark:border-neutral-700">
               <CardContent className="text-center pt-8">
                 <ShieldCheckIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
                   Secure Encapsulation
                 </h3>
-                <p className="text-neutral-600 text-sm">
+                <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                   Tamper-evident holders with unique serial numbers protect 
                   your cards while displaying grades and authentication details.
                 </p>
@@ -230,8 +230,8 @@ export default function AboutPage() {
           </div>
 
           {/* Grading Process */}
-          <div className="bg-neutral-50 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-neutral-900 mb-8 text-center">
+          <div className="bg-neutral-50 dark:bg-neutral-800 dark:border-neutral-700 rounded-2xl p-8">
+            <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-8 text-center">
               Our 5-Step Grading Process
             </h3>
             <div className="space-y-8">
@@ -241,10 +241,10 @@ export default function AboutPage() {
                     {step.step}
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-neutral-900 mb-2">
+                    <h4 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
                       {step.title}
                     </h4>
-                    <p className="text-neutral-600">
+                    <p className="text-neutral-600 dark:text-neutral-300">
                       {step.description}
                     </p>
                   </div>
@@ -256,34 +256,34 @@ export default function AboutPage() {
       </section>
 
       {/* Our Team */}
-      <section className="py-20 bg-neutral-50">
+      <section className="py-20 bg-neutral-50 dark:bg-neutral-800">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-heading font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl font-heading font-bold text-neutral-900 dark:text-white mb-4">
               Meet Our Expert Team
             </h2>
-            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+            <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
               Our certified graders bring decades of combined experience to ensure 
               your cards receive the most accurate and professional assessment.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {team.map((member) => (
-              <Card key={member.name} className="text-center">
+              <Card key={member.name} className="text-center dark:bg-neutral-800 dark:border-neutral-700">
                 <CardContent className="pt-8">
-                  <div className="w-20 h-20 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary-500 to-secondary-500 dark:from-dark-gradient-start dark:to-dark-gradient-end rounded-full mx-auto mb-4 flex items-center justify-center">
                     <UserGroupIcon className="h-10 w-10 text-white" />
                   </div>
-                  <h3 className="text-xl font-semibold text-neutral-900 mb-1">
+                  <h3 className="text-xl font-semibold text-neutral-900 dark:text-white mb-1">
                     {member.name}
                   </h3>
                   <p className="text-primary-500 font-medium mb-2">
                     {member.role}
                   </p>
-                  <p className="text-sm text-neutral-600 mb-2">
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-2">
                     {member.experience}
                   </p>
-                  <p className="text-xs text-neutral-500">
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400">
                     Specialty: {member.specialty}
                   </p>
                 </CardContent>
@@ -294,13 +294,13 @@ export default function AboutPage() {
       </section>
 
       {/* Security & Safety */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-dark-bg">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-heading font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl font-heading font-bold text-neutral-900 dark:text-white mb-4">
               Security & Safety
             </h2>
-            <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
+            <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto">
               Your cards are precious to you, and they're precious to us. We've implemented 
               comprehensive security measures to ensure your collection is protected every step of the way.
             </p>
@@ -308,22 +308,22 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="text-center">
               <ShieldCheckIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-              <h3 className="font-semibold text-neutral-900 mb-2">Full Insurance Coverage</h3>
-              <p className="text-neutral-600 text-sm">
+              <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">Full Insurance Coverage</h3>
+              <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                 All submissions are fully insured during transit and while in our facility.
               </p>
             </div>
             <div className="text-center">
               <BuildingOfficeIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-              <h3 className="font-semibold text-neutral-900 mb-2">Climate-Controlled Facility</h3>
-              <p className="text-neutral-600 text-sm">
+              <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">Climate-Controlled Facility</h3>
+              <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                 Temperature and humidity controlled environment protects cards from damage.
               </p>
             </div>
             <div className="text-center">
               <EyeIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
-              <h3 className="font-semibold text-neutral-900 mb-2">24/7 Monitoring</h3>
-              <p className="text-neutral-600 text-sm">
+              <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">24/7 Monitoring</h3>
+              <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                 Advanced security systems monitor our facility around the clock.
               </p>
             </div>
@@ -332,7 +332,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-500 to-secondary-500">
+      <section className="py-20 bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-dark-gradient-start dark:to-dark-gradient-end">
         <div className="container-custom text-center">
           <h2 className="text-3xl font-heading font-bold text-white mb-6">
             Ready to Experience Professional Grading?
@@ -345,7 +345,7 @@ export default function AboutPage() {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="w-full sm:w-auto bg-white text-primary-500 border-white hover:bg-neutral-50"
+                className="w-full sm:w-auto bg-white text-primary-500 border-white hover:bg-neutral-50 dark:bg-white dark:text-primary-500"
               >
                 Submit Your Cards
               </Button>

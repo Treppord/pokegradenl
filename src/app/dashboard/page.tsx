@@ -83,14 +83,14 @@ export default function DashboardPage() {
   return (
     <Layout>
       {/* Header */}
-      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-8">
+      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-dark-gradient-start dark:to-dark-gradient-end py-8">
         <div className="container-custom">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl lg:text-3xl font-heading font-bold text-neutral-900 mb-2">
+              <h1 className="text-2xl lg:text-3xl font-heading font-bold text-neutral-900 dark:text-white mb-2">
                 Welcome back, {mockUser.name}
               </h1>
-              <p className="text-neutral-600">
+              <p className="text-neutral-600 dark:text-neutral-300">
                 Member since {new Date(mockUser.memberSince).toLocaleDateString()}
               </p>
             </div>
@@ -112,7 +112,7 @@ export default function DashboardPage() {
               <div className="text-3xl font-bold text-primary-500 mb-2">
                 {mockUser.totalSubmissions}
               </div>
-              <p className="text-neutral-600">Total Submissions</p>
+              <p className="text-neutral-600 dark:text-neutral-300">Total Submissions</p>
             </CardContent>
           </Card>
           <Card>
@@ -120,7 +120,7 @@ export default function DashboardPage() {
               <div className="text-3xl font-bold text-warning mb-2">
                 {mockUser.activeSubmissions}
               </div>
-              <p className="text-neutral-600">In Progress</p>
+              <p className="text-neutral-600 dark:text-neutral-300">In Progress</p>
             </CardContent>
           </Card>
           <Card>
@@ -128,14 +128,14 @@ export default function DashboardPage() {
               <div className="text-3xl font-bold text-success mb-2">
                 {mockUser.completedSubmissions}
               </div>
-              <p className="text-neutral-600">Completed</p>
+              <p className="text-neutral-600 dark:text-neutral-300">Completed</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Quick Actions */}
         <div className="mb-12">
-          <h2 className="text-xl font-semibold text-neutral-900 mb-6">Quick Actions</h2>
+          <h2 className="text-xl font-semibold text-neutral-900 dark:text-white mb-6">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {quickActions.map((action) => (
               <Link key={action.title} href={action.href}>
@@ -144,10 +144,10 @@ export default function DashboardPage() {
                     <div className={`w-12 h-12 ${action.color} rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
                       <action.icon className="h-6 w-6 text-white" />
                     </div>
-                    <h3 className="font-semibold text-neutral-900 mb-2">
+                    <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">
                       {action.title}
                     </h3>
-                    <p className="text-sm text-neutral-600">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-300">
                       {action.description}
                     </p>
                   </CardContent>
@@ -169,12 +169,12 @@ export default function DashboardPage() {
             <CardContent>
               <div className="space-y-4">
                 {recentSubmissions.map((submission) => (
-                  <div key={submission.id} className="flex items-center justify-between p-4 bg-neutral-50 rounded-lg">
+                  <div key={submission.id} className="flex items-center justify-between p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
                     <div>
-                      <h4 className="font-medium text-neutral-900">
+                      <h4 className="font-medium text-neutral-900 dark:text-white">
                         {submission.id}
                       </h4>
-                      <p className="text-sm text-neutral-600">
+                      <p className="text-sm text-neutral-600 dark:text-neutral-300">
                         {submission.cardCount} cards • Submitted {new Date(submission.submittedAt).toLocaleDateString()}
                       </p>
                     </div>
@@ -191,7 +191,7 @@ export default function DashboardPage() {
                   </div>
                 ))}
               </div>
-              <div className="mt-6 pt-4 border-t border-neutral-100">
+              <div className="mt-6 pt-4 border-t border-neutral-100 dark:border-neutral-700">
                 <Link href="/track">
                   <Button variant="outline" className="w-full">
                     View All Submissions
@@ -212,25 +212,25 @@ export default function DashboardPage() {
             <CardContent>
               <div className="space-y-4">
                 <div className="flex justify-between">
-                  <span className="text-neutral-600">Email</span>
-                  <span className="font-medium">{mockUser.email}</span>
+                  <span className="text-neutral-600 dark:text-neutral-300">Email</span>
+                  <span className="font-medium dark:text-white">{mockUser.email}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-neutral-600">Member Since</span>
-                  <span className="font-medium">
+                  <span className="text-neutral-600 dark:text-neutral-300">Member Since</span>
+                  <span className="font-medium dark:text-white">
                     {new Date(mockUser.memberSince).toLocaleDateString()}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-neutral-600">Account Status</span>
+                  <span className="text-neutral-600 dark:text-neutral-300">Account Status</span>
                   <span className="font-medium text-success">Active</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-neutral-600">Preferred Service</span>
-                  <span className="font-medium">Standard</span>
+                  <span className="text-neutral-600 dark:text-neutral-300">Preferred Service</span>
+                  <span className="font-medium dark:text-white">Standard</span>
                 </div>
               </div>
-              <div className="mt-6 pt-4 border-t border-neutral-100">
+              <div className="mt-6 pt-4 border-t border-neutral-100 dark:border-neutral-700">
                 <Button variant="outline" className="w-full">
                   Edit Profile
                 </Button>
@@ -241,15 +241,15 @@ export default function DashboardPage() {
 
         {/* Placeholder Notice */}
         <div className="mt-12">
-          <Card className="bg-blue-50 border-blue-200">
+          <Card className="bg-blue-50 dark:bg-neutral-800 border-blue-200 dark:border-neutral-700">
             <CardContent className="text-center py-8">
               <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CogIcon className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-lg font-semibold text-blue-900 mb-2">
+              <h3 className="text-lg font-semibold text-blue-900 dark:text-white mb-2">
                 Dashboard Under Development
               </h3>
-              <p className="text-blue-700 max-w-2xl mx-auto">
+              <p className="text-blue-700 dark:text-neutral-300 max-w-2xl mx-auto">
                 This dashboard is currently in development. Some features may not be fully functional yet. 
                 We're working hard to provide you with a complete user experience.
               </p>

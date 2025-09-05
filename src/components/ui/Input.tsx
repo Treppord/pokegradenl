@@ -38,9 +38,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-neutral-700 mb-2">
+        <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
           {label}
-          {required && <span className="text-primary-500 ml-1">*</span>}
+          {required && <span className="text-primary-500 dark:text-dark-gradient-start ml-1">*</span>}
         </label>
       )}
       <input
@@ -102,9 +102,9 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-neutral-700 mb-2">
+        <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
           {label}
-          {required && <span className="text-primary-500 ml-1">*</span>}
+          {required && <span className="text-primary-500 dark:text-dark-gradient-start ml-1">*</span>}
         </label>
       )}
       <textarea
@@ -166,9 +166,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-neutral-700 mb-2">
+        <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
           {label}
-          {required && <span className="text-primary-500 ml-1">*</span>}
+          {required && <span className="text-primary-500 dark:text-dark-gradient-start ml-1">*</span>}
         </label>
       )}
       <div className="relative">
@@ -191,7 +191,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
             </option>
           ))}
         </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-neutral-700">
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-neutral-700 dark:text-neutral-300">
           <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
           </svg>
