@@ -1,84 +1,99 @@
-import { Layout } from '@/components/layout/Layout';
-import { Button } from '@/components/ui/Button';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import Link from 'next/link';
-import { 
-  ShieldCheckIcon, 
-  ClockIcon, 
+import { Layout } from "@/components/layout/Layout";
+import { Button } from "@/components/ui/Button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import Link from "next/link";
+import {
+  ShieldCheckIcon,
+  ClockIcon,
   CurrencyEuroIcon,
   StarIcon,
   TrophyIcon,
-  DocumentMagnifyingGlassIcon
-} from '@heroicons/react/24/outline';
+  DocumentMagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 
 const features = [
   {
     icon: ShieldCheckIcon,
-    title: 'Certified Authentication',
-    description: 'Advanced scanning technology combined with expert human graders ensure authentic, accurate grading.',
+    title: "Certified Authentication",
+    description:
+      "Advanced scanning technology combined with expert human graders ensure authentic, accurate grading.",
   },
   {
     icon: ClockIcon,
-    title: 'Fast Turnaround',
-    description: 'Multiple service tiers available from 5-day express to 20-day standard, fitting your timeline.',
+    title: "Fast Turnaround",
+    description:
+      "Multiple service tiers available from 5-day express to 20-day standard, fitting your timeline.",
   },
   {
     icon: CurrencyEuroIcon,
-    title: 'Competitive Pricing',
-    description: 'Transparent pricing starting from €15 per card with no hidden fees or surprise charges.',
+    title: "Competitive Pricing",
+    description:
+      "Transparent pricing starting from €15 per card with no hidden fees or surprise charges.",
   },
   {
     icon: DocumentMagnifyingGlassIcon,
-    title: 'Detailed Reports',
-    description: 'Comprehensive grading reports with high-resolution images and detailed condition analysis.',
+    title: "Detailed Reports",
+    description:
+      "Comprehensive grading reports with high-resolution images and detailed condition analysis.",
   },
 ];
 
 const serviceTiers = [
   {
-    name: 'Value',
-    price: '€15',
-    turnaround: '20 business days',
-    maxValue: '€500',
-    features: ['Standard grading', 'Basic protection', 'Online tracking'],
+    name: "Value",
+    price: "€15",
+    turnaround: "20 business days",
+    maxValue: "€500",
+    features: ["Standard grading", "Basic protection", "Online tracking"],
     popular: false,
   },
   {
-    name: 'Standard',
-    price: '€25',
-    turnaround: '10 business days',
-    maxValue: '€2,500',
-    features: ['Priority grading', 'Enhanced protection', 'Online tracking', 'Express handling'],
+    name: "Standard",
+    price: "€25",
+    turnaround: "10 business days",
+    maxValue: "€2,500",
+    features: [
+      "Priority grading",
+      "Enhanced protection",
+      "Online tracking",
+      "Express handling",
+    ],
     popular: true,
   },
   {
-    name: 'Premium',
-    price: '€45',
-    turnaround: '5 business days',
-    maxValue: '€10,000',
-    features: ['Express grading', 'Maximum protection', 'Online tracking', 'Priority handling', 'Phone updates'],
+    name: "Premium",
+    price: "€45",
+    turnaround: "5 business days",
+    maxValue: "€10,000",
+    features: [
+      "Express grading",
+      "Maximum protection",
+      "Online tracking",
+      "Priority handling",
+      "Phone updates",
+    ],
     popular: false,
   },
 ];
 
 const testimonials = [
   {
-    name: 'Mark van der Berg',
-    location: 'Amsterdam',
+    name: "Mark van der Berg",
+    location: "Amsterdam",
     rating: 5,
-    text: 'Outstanding service! My vintage Charizard was handled with incredible care. The grading report was thorough and professional.',
+    text: "Outstanding service! My vintage Charizard was handled with incredible care. The grading report was thorough and professional.",
   },
   {
-    name: 'Emma Janssen',
-    location: 'Rotterdam',
+    name: "Emma Janssen",
+    location: "Rotterdam",
     rating: 5,
-    text: 'Fast turnaround and competitive prices. PokeGrade has become my go-to for all card authentication needs.',
+    text: "Fast turnaround and competitive prices. PokeGrade has become my go-to for all card authentication needs.",
   },
   {
-    name: 'Thomas de Wit',
-    location: 'Utrecht',
+    name: "Thomas de Wit",
+    location: "Utrecht",
     rating: 5,
-    text: 'The online tracking system is amazing. I could follow my cards every step of the way. Highly recommend!',
+    text: "The online tracking system is amazing. I could follow my cards every step of the way. Highly recommend!",
   },
 ];
 
@@ -92,12 +107,14 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
               <h1 className="text-4xl lg:text-6xl font-heading font-bold text-neutral-900 mb-6 leading-tight">
-                <span className="text-gradient">Precision Grading,</span><br />
+                <span className="text-gradient">Precision Grading,</span>
+                <br />
                 Passionately Delivered
               </h1>
               <p className="text-lg lg:text-xl text-neutral-600 mb-8 leading-relaxed">
-                Netherlands' trusted Pokémon card grading service. Get your cards authenticated 
-                and graded by certified experts using advanced technology and rigorous standards.
+                Netherlands' trusted Pokémon card grading service. Get your
+                cards authenticated and graded by certified experts using
+                advanced technology and rigorous standards.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href="/submit">
@@ -106,22 +123,34 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link href="/services">
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
                     View Pricing
                   </Button>
                 </Link>
               </div>
             </div>
             <div className="relative">
-              <div className="bg-white rounded-2xl shadow-2xl p-8 transform rotate-3 hover:rotate-1 transition-transform duration-300">
-                <div className="bg-gradient-to-br from-primary-500 to-secondary-500 h-64 rounded-lg flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <TrophyIcon className="h-16 w-16 mx-auto mb-4" />
-                    <p className="text-lg font-semibold">Professional Grade</p>
-                    <p className="text-sm opacity-90">Charizard Base Set</p>
-                  </div>
+              <div className="bg-white rounded-2xl shadow-2xl p-6 transform rotate-3 hover:rotate-1 transition-transform duration-300">
+                <div className="bg-neutral-100 rounded-lg overflow-hidden">
+                  <img
+                    src="/assets/img/example-1.png"
+                    alt="Genesect Ex from Black Bolt White Flare Collection - Professionally Graded"
+                    className="w-full h-96 object-contain"
+                    width={768}
+                    height={1024}
+                  />
                 </div>
                 <div className="mt-4 text-center">
+                  <p className="text-lg font-semibold text-neutral-900 mb-1">
+                    Professional Grade
+                  </p>
+                  <p className="text-sm text-neutral-600 mb-3">
+                    Genesect Ex - Black Bolt White Flare
+                  </p>
                   <div className="inline-flex items-center bg-success text-white px-3 py-1 rounded-full text-sm font-medium">
                     <StarIcon className="h-4 w-4 mr-1" />
                     Grade: 9.5
@@ -141,8 +170,9 @@ export default function Home() {
               Why Choose PokeGrade?
             </h2>
             <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-              We combine cutting-edge technology with human expertise to deliver 
-              the most accurate and trusted card grading service in the Netherlands.
+              We combine cutting-edge technology with human expertise to deliver
+              the most accurate and trusted card grading service in the
+              Netherlands.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -171,16 +201,18 @@ export default function Home() {
               Choose Your Service Level
             </h2>
             <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-              From budget-friendly to premium express service, we have options 
+              From budget-friendly to premium express service, we have options
               for every collector and timeline.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {serviceTiers.map((tier) => (
-              <Card 
-                key={tier.name} 
+              <Card
+                key={tier.name}
                 className={`text-center relative ${
-                  tier.popular ? 'ring-2 ring-primary-500 transform scale-105' : ''
+                  tier.popular
+                    ? "ring-2 ring-primary-500 transform scale-105"
+                    : ""
                 }`}
               >
                 {tier.popular && (
@@ -200,20 +232,28 @@ export default function Home() {
                     </span>
                     <span className="text-neutral-600 ml-1">per card</span>
                   </div>
-                  <p className="text-neutral-600 mt-2">
-                    {tier.turnaround}
-                  </p>
+                  <p className="text-neutral-600 mt-2">{tier.turnaround}</p>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3 text-left">
                     {tier.features.map((feature, index) => (
                       <li key={index} className="flex items-start">
                         <div className="flex-shrink-0 w-5 h-5 bg-success rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          <svg
+                            className="w-3 h-3 text-white"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
                           </svg>
                         </div>
-                        <span className="text-neutral-700 text-sm">{feature}</span>
+                        <span className="text-neutral-700 text-sm">
+                          {feature}
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -226,9 +266,7 @@ export default function Home() {
           </div>
           <div className="text-center mt-12">
             <Link href="/services">
-              <Button size="lg">
-                View Detailed Pricing
-              </Button>
+              <Button size="lg">View Detailed Pricing</Button>
             </Link>
           </div>
         </div>
@@ -242,7 +280,8 @@ export default function Home() {
               Trusted by Collectors Across the Netherlands
             </h2>
             <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-              Join thousands of satisfied customers who trust PokeGrade with their most valuable cards.
+              Join thousands of satisfied customers who trust PokeGrade with
+              their most valuable cards.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -251,15 +290,22 @@ export default function Home() {
                 <CardContent>
                   <div className="flex items-center mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <StarIcon key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                      <StarIcon
+                        key={i}
+                        className="h-5 w-5 text-yellow-400 fill-current"
+                      />
                     ))}
                   </div>
                   <p className="text-neutral-700 mb-4 italic">
                     "{testimonial.text}"
                   </p>
                   <div className="border-t border-neutral-100 pt-4">
-                    <p className="font-semibold text-neutral-900">{testimonial.name}</p>
-                    <p className="text-sm text-neutral-600">{testimonial.location}</p>
+                    <p className="font-semibold text-neutral-900">
+                      {testimonial.name}
+                    </p>
+                    <p className="text-sm text-neutral-600">
+                      {testimonial.location}
+                    </p>
                   </div>
                 </CardContent>
               </Card>
@@ -275,23 +321,23 @@ export default function Home() {
             Ready to Grade Your Collection?
           </h2>
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-            Join the thousands of collectors who trust PokeGrade for professional, 
-            accurate, and reliable Pokémon card grading services.
+            Join the thousands of collectors who trust PokeGrade for
+            professional, accurate, and reliable Pokémon card grading services.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/submit">
-              <Button 
-                variant="outline" 
-                size="lg" 
+              <Button
+                variant="outline"
+                size="lg"
                 className="w-full sm:w-auto bg-white text-primary-500 border-white hover:bg-neutral-50"
               >
                 Submit Cards Now
               </Button>
             </Link>
             <Link href="/track">
-              <Button 
-                variant="ghost" 
-                size="lg" 
+              <Button
+                variant="ghost"
+                size="lg"
                 className="w-full sm:w-auto text-white border border-white/30 hover:bg-white/10"
               >
                 Track Your Order
