@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Logo } from './Logo';
+import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Logo } from "./Logo";
 
 const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Grading Services', href: '/services' },
-  { name: 'Submit Cards', href: '/submit' },
-  { name: 'Track Order', href: '/track' },
-  { name: 'About Us', href: '/about' },
-  { name: 'Contact', href: '/contact' },
+  { name: "Home", href: "/" },
+  { name: "Grading Services", href: "/services" },
+  { name: "Submit Cards", href: "/submit" },
+  { name: "Track Order", href: "/track" },
+  { name: "About Us", href: "/about" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {
@@ -27,7 +27,7 @@ export function Navbar() {
         {/* Logo */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
-            <Logo variant="png" className="h-8 w-auto" priority />
+            <Logo variant="png" className="h-16 w-auto" priority />
           </Link>
         </div>
 
@@ -39,8 +39,8 @@ export function Navbar() {
               href={item.href}
               className={`font-medium transition-colors duration-200 ${
                 isActive(item.href)
-                  ? 'text-primary-500 border-b-2 border-primary-500 pb-1'
-                  : 'text-neutral-600 hover:text-primary-500'
+                  ? "text-primary-500 border-b-2 border-primary-500 pb-1"
+                  : "text-neutral-600 hover:text-primary-500"
               }`}
             >
               {item.name}
@@ -73,13 +73,13 @@ export function Navbar() {
       {/* Mobile menu */}
       <div
         className={`lg:hidden fixed inset-0 z-50 ${
-          mobileMenuOpen ? 'block' : 'hidden'
+          mobileMenuOpen ? "block" : "hidden"
         }`}
       >
         <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-neutral-900/10">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2">
-              <Logo variant="png" className="h-8 w-auto" />
+              <Logo variant="png" className="h-16 w-auto" />
             </Link>
             <button
               type="button"
@@ -98,8 +98,8 @@ export function Navbar() {
                     href={item.href}
                     className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 ${
                       isActive(item.href)
-                        ? 'bg-primary-50 text-primary-500'
-                        : 'text-neutral-900 hover:bg-neutral-50'
+                        ? "bg-primary-50 text-primary-500"
+                        : "text-neutral-900 hover:bg-neutral-50"
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -111,8 +111,8 @@ export function Navbar() {
                 <button className="text-neutral-600 hover:text-primary-500 font-semibold transition-colors duration-200">
                   Login
                 </button>
-                <Link 
-                  href="/submit" 
+                <Link
+                  href="/submit"
                   className="btn-primary w-full text-center block"
                   onClick={() => setMobileMenuOpen(false)}
                 >
