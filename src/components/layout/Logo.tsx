@@ -1,0 +1,63 @@
+import React from 'react';
+
+export function Logo({ className = 'h-8 w-8' }: { className?: string }) {
+  return (
+    <div className={`${className} flex items-center justify-center`}>
+      <svg
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-full"
+      >
+        {/* Outer circle */}
+        <circle
+          cx="20"
+          cy="20"
+          r="18"
+          fill="currentColor"
+          className="text-primary-500"
+        />
+        
+        {/* Inner white circle */}
+        <circle
+          cx="20"
+          cy="20"
+          r="14"
+          fill="white"
+        />
+        
+        {/* Magnifying glass lens */}
+        <circle
+          cx="18"
+          cy="18"
+          r="8"
+          stroke="currentColor"
+          strokeWidth="2"
+          fill="none"
+          className="text-secondary-500"
+        />
+        
+        {/* Magnifying glass handle */}
+        <line
+          x1="24"
+          y1="24"
+          x2="28"
+          y2="28"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          className="text-secondary-500"
+        />
+        
+        {/* Central dot for precision */}
+        <circle
+          cx="18"
+          cy="18"
+          r="2"
+          fill="currentColor"
+          className="text-primary-500"
+        />
+      </svg>
+    </div>
+  );
+}
