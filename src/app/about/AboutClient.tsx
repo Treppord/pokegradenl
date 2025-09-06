@@ -123,7 +123,7 @@ export default function AboutClient() {
               </h2>
               <div className="space-y-4 text-neutral-600 leading-relaxed">
                 <p>
-                  PokeGrade Nederland was founded in 2018 by a group of
+                  PokeGrade Nederland was founded in 2024 by a group of
                   passionate Pokémon card collectors who recognized the need for
                   accessible, high-quality grading services in the Netherlands.
                 </p>
@@ -134,10 +134,10 @@ export default function AboutClient() {
                   Dutch and European collectors.
                 </p>
                 <p>
-                  Today, we're proud to be the Netherlands' leading independent
-                  card grading service, combining traditional expertise with
-                  cutting-edge technology to provide accurate, consistent, and
-                  trustworthy grading for collectors across Europe.
+                  Today, we're proud to be a Dutch independent card grading
+                  service, combining traditional expertise with cutting-edge
+                  technology to provide accurate, consistent, and trustworthy
+                  grading for collectors across Europe.
                 </p>
               </div>
             </div>
