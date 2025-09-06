@@ -7,6 +7,7 @@ import ContactForm from "./ContactForm";
 import FAQSection from "./FAQSection";
 import { Button } from "@/components/ui/Button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import Link from "next/link";
 import {
   EnvelopeIcon,
   PhoneIcon,
@@ -127,12 +128,12 @@ export default function ContactClient() {
             collectors.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
-              <a href="/submit">Submit Cards Now</a>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <a href="/services">View Pricing</a>
-            </Button>
+            <Link href="/submit">
+              <Button size="lg">Submit Cards Now</Button>
+            </Link>
+            <Link href="/services">
+              <Button variant="outline" size="lg">View Pricing</Button>
+            </Link>
           </div>
         </div>
       </section>
