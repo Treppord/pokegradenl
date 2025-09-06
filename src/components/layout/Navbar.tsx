@@ -25,6 +25,7 @@ export function Navbar() {
     { name: t('nav.services'), href: "/services" },
     { name: t('nav.submit'), href: "/submit" },
     { name: t('nav.track'), href: "/track" },
+    { name: t('nav.lookup'), href: "/lookup" },
     { name: t('nav.about'), href: "/about" },
     { name: t('nav.contact'), href: "/contact" },
   ];
