@@ -6,12 +6,16 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+  fallback: ["system-ui", "arial"],
 });
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-poppins",
+  display: "swap",
+  fallback: ["system-ui", "arial"],
 });
 
 export const metadata: Metadata = {
@@ -117,6 +121,10 @@ export default function RootLayout({
   return (
     <html lang="nl" className={`${inter.variable} ${poppins.variable}`}>
       <head>
+        {/* Font preconnect for better performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
         {/* Local Business Schema */}
         <script
           type="application/ld+json"

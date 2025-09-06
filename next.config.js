@@ -16,6 +16,7 @@ const nextConfig = {
       },
     ],
   },
+  // Font optimization is handled by next/font automatically
 }
 
 module.exports = nextConfig
