@@ -29,6 +29,6 @@ export default async function VerifyPage({ params }: Props) {
     redirect(`/lookup?error=invalid_format`);
   }
 
-  // Redirect to lookup page with the PG ID pre-filled
-  redirect(`/lookup?id=${pgId}`);
+  // Redirect to lookup page with PG ID in URL path
+  redirect(`/lookup/${pgId}`);
 }

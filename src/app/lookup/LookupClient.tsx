@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Layout } from '@/components/layout/Layout';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/Button';
@@ -21,17 +21,23 @@ import {
   ShieldCheckIcon,
 } from '@heroicons/react/24/outline';
 
-export default function LookupClient() {
+interface LookupClientProps {
+  initialPgId?: string;
+}
+
+export default function LookupClient({ initialPgId }: LookupClientProps = {}) {
   const { t } = useLanguage();
   const searchParams = useSearchParams();
-  const [pgId, setPgId] = useState('');
+  const router = useRouter();
+  const pathname = usePathname();
+  const [pgId, setPgId] = useState(initialPgId?.toUpperCase() || '');
   const [loading, setLoading] = useState(false);
   const [cardData, setCardData] = useState<PokegradeCardData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [searchPerformed, setSearchPerformed] = useState(false);
   const [showQRScanner, setShowQRScanner] = useState(false);
 
-  // Handle URL parameters (from QR code redirects)
+  // Handle URL parameters and initial PG ID
   useEffect(() => {
     const urlPgId = searchParams.get('id');
     const urlError = searchParams.get('error');
@@ -42,12 +48,15 @@ export default function LookupClient() {
       return;
     }
     
-    if (urlPgId && !searchPerformed) {
-      setPgId(urlPgId.toUpperCase());
-      // Auto-search when coming from QR code
-      handleAutoSearch(urlPgId.toUpperCase());
+    // Priority: initialPgId (from URL path) > URL query parameter
+    const targetPgId = initialPgId || urlPgId;
+    
+    if (targetPgId && !searchPerformed) {
+      setPgId(targetPgId.toUpperCase());
+      // Auto-search when coming from QR code or direct URL
+      handleAutoSearch(targetPgId.toUpperCase());
     }
-  }, [searchParams, searchPerformed, t]);
+  }, [searchParams, searchPerformed, t, initialPgId]);
 
   const handleAutoSearch = async (searchPgId: string) => {
     if (!searchPgId.trim()) return;
@@ -65,6 +74,9 @@ export default function LookupClient() {
       if (result.success && result.card) {
         setCardData(result.card);
         setError(null);
+        
+        // Update URL to show PG ID in path
+        router.replace(`/lookup/${searchPgId}`);
       } else {
         switch (result.code) {
           case 'INVALID_FORMAT':
@@ -114,6 +126,11 @@ export default function LookupClient() {
         console.log('Setting card data:', result.card);
         setCardData(result.card);
         setError(null);
+        
+        // Update URL to show PG ID in path if we're not already there
+        if (!pathname.includes('/lookup/') || !pathname.includes(pgId.trim().toUpperCase())) {
+          router.replace(`/lookup/${pgId.trim().toUpperCase()}`);
+        }
       } else {
         switch (result.code) {
           case 'INVALID_FORMAT':
@@ -151,6 +168,9 @@ export default function LookupClient() {
         setCardData(result.card);
         setError(null);
         setSearchPerformed(true);
+        
+        // Update URL to show PG ID in path
+        router.replace(`/lookup/${result.card.pokegrade_id}`);
       } else {
         switch (result.code) {
           case 'INVALID_QR':
