@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Logo } from "./Logo";
+import { LoginModal } from "@/components/ui/LoginModal";
+import { useAuth } from "@/hooks/useAuth";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -17,9 +19,16 @@ const navigation = [
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
   const pathname = usePathname();
+  const { user, logout, isAuthenticated } = useAuth();
 
   const isActive = (href: string) => pathname === href;
+
+  const handleLogout = async () => {
+    await logout();
+    setMobileMenuOpen(false);
+  };
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -50,11 +59,31 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden lg:flex items-center space-x-4">
-          <button className="text-neutral-600 hover:text-primary-500 font-medium transition-colors duration-200">
-            Login
-          </button>
+          {isAuthenticated ? (
+            <>
+              <span className="text-sm text-gray-600">
+                Welcome, {user?.firstName || user?.email}
+              </span>
+              <Link href="/dashboard" className="text-neutral-600 hover:text-primary-500 font-medium transition-colors duration-200">
+                Dashboard
+              </Link>
+              <button 
+                onClick={handleLogout}
+                className="text-neutral-600 hover:text-primary-500 font-medium transition-colors duration-200"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <button 
+              onClick={() => setLoginModalOpen(true)}
+              className="text-neutral-600 hover:text-primary-500 font-medium transition-colors duration-200"
+            >
+              Login
+            </button>
+          )}
           <Link href="/submit" className="btn-primary">
-            Submit Cards
+            {isAuthenticated ? "Submit Cards" : "Get Started"}
           </Link>
         </div>
 
@@ -108,21 +137,55 @@ export function Navbar() {
                 ))}
               </div>
               <div className="py-6 space-y-4">
-                <button className="text-neutral-600 hover:text-primary-500 font-semibold transition-colors duration-200">
-                  Login
-                </button>
+                {isAuthenticated ? (
+                  <>
+                    <div className="text-sm text-gray-600 px-3">
+                      Welcome, {user?.firstName || user?.email}
+                    </div>
+                    <Link
+                      href="/dashboard"
+                      className="text-neutral-600 hover:text-primary-500 font-semibold transition-colors duration-200 block px-3 py-2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Dashboard
+                    </Link>
+                    <button 
+                      onClick={handleLogout}
+                      className="text-neutral-600 hover:text-primary-500 font-semibold transition-colors duration-200 block px-3 py-2 w-full text-left"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <button 
+                    onClick={() => {
+                      setLoginModalOpen(true);
+                      setMobileMenuOpen(false);
+                    }}
+                    className="text-neutral-600 hover:text-primary-500 font-semibold transition-colors duration-200 block px-3 py-2"
+                  >
+                    Login
+                  </button>
+                )}
                 <Link
                   href="/submit"
                   className="btn-primary w-full text-center block"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Submit Cards
+                  {isAuthenticated ? "Submit Cards" : "Get Started"}
                 </Link>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Login Modal */}
+      <LoginModal 
+        isOpen={loginModalOpen} 
+        onClose={() => setLoginModalOpen(false)} 
+        onSuccess={() => setLoginModalOpen(false)}
+      />
     </header>
   );
 }

@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/Button';
 import { Input, Select, Textarea } from '@/components/ui/Input';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { PayPalButton } from '@/components/ui/PayPalButton';
 import { 
   CheckCircleIcon,
   ClockIcon,
@@ -89,6 +91,7 @@ const steps = [
 ];
 
 export default function SubmitPage() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedTier, setSelectedTier] = useState('standard');
   const [cards, setCards] = useState<CardEntry[]>([{
@@ -181,6 +184,50 @@ export default function SubmitPage() {
       default:
         return true;
     }
+  };
+
+  const preparePaymentData = () => {
+    const tier = serviceTiers.find(t => t.id === selectedTier);
+    const items = [{
+      name: `${tier?.name} Card Grading Service`,
+      description: `Professional grading for ${cards.length} Pokémon cards`,
+      quantity: cards.length,
+      unit_amount: {
+        currency_code: 'EUR',
+        value: (tier?.price || 0).toFixed(2),
+      },
+    }];
+
+    const customerInfo = {
+      firstName: shippingInfo.pickupAddress.firstName,
+      lastName: shippingInfo.pickupAddress.lastName,
+      phone: shippingInfo.pickupAddress.phone,
+    };
+
+    return { items, customerInfo };
+  };
+
+  const handlePaymentSuccess = (orderId: string) => {
+    // Store submission data in localStorage for later retrieval
+    const submissionData = {
+      orderId,
+      selectedTier,
+      cards,
+      shippingInfo,
+      total: calculateTotal(),
+      timestamp: new Date().toISOString(),
+    };
+    
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('lastSubmission', JSON.stringify(submissionData));
+    }
+    
+    router.push(`/payment/success?orderId=${orderId}`);
+  };
+
+  const handlePaymentError = (error: any) => {
+    console.error('Payment failed:', error);
+    alert('Payment failed. Please try again or contact support if the issue persists.');
   };
 
   return (
@@ -557,12 +604,35 @@ export default function SubmitPage() {
                         </p>
                       </div>
 
-                      {/* Payment Placeholder */}
-                      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                        <p className="text-yellow-800 font-medium">Payment Integration Coming Soon</p>
-                        <p className="text-yellow-700 text-sm mt-1">
-                          This submission will be saved and you will receive payment instructions via email.
-                        </p>
+                      {/* Payment Section */}
+                      <div className="border-t pt-6">
+                        <h4 className="font-medium text-neutral-900 mb-4">Complete Your Payment</h4>
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                          <p className="text-blue-800 font-medium mb-2">🎉 Almost there!</p>
+                          <p className="text-blue-700 text-sm">
+                            After successful payment, you'll receive an email with:
+                          </p>
+                          <ul className="list-disc list-inside text-blue-700 text-sm mt-2 space-y-1">
+                            <li>Account creation instructions</li>
+                            <li>Shipping labels and instructions</li>
+                            <li>Order tracking information</li>
+                          </ul>
+                        </div>
+                        
+                        <PayPalButton
+                          email={shippingInfo.pickupAddress.email}
+                          items={preparePaymentData().items}
+                          customerInfo={preparePaymentData().customerInfo}
+                          onSuccess={handlePaymentSuccess}
+                          onError={handlePaymentError}
+                          onCancel={() => console.log('Payment cancelled by user')}
+                        />
+                        
+                        <div className="mt-4 text-center">
+                          <p className="text-xs text-gray-500">
+                            Secure payment processed by PayPal. Your card information is never stored on our servers.
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </CardContent>
@@ -587,9 +657,11 @@ export default function SubmitPage() {
                   Next
                 </Button>
               ) : (
-                <Button>
-                  Submit Order
-                </Button>
+                <div className="text-right">
+                  <p className="text-sm text-gray-600 mb-2">
+                    Complete payment above to submit your order
+                  </p>
+                </div>
               )}
             </div>
           </div>
