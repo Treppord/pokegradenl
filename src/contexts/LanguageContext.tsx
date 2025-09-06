@@ -31,6 +31,10 @@ const translations = {
     nl: 'Volgen',
     en: 'Track'
   },
+  'nav.lookup': {
+    nl: 'PG Lookup',
+    en: 'PG Lookup'
+  },
   'nav.about': {
     nl: 'Over Ons',
     en: 'About'
@@ -430,6 +434,144 @@ const translations = {
   'form.country': {
     nl: 'Land',
     en: 'Country'
+  },
+
+  // PG Lookup Page
+  'lookup.page_title': {
+    nl: 'PG ID Lookup - Pokémon Kaart Zoeken',
+    en: 'PG ID Lookup - Pokemon Card Search'
+  },
+  'lookup.hero_title': {
+    nl: 'Zoek je Pokémon Kaart',
+    en: 'Find Your Pokemon Card'
+  },
+  'lookup.hero_desc': {
+    nl: 'Voer je PokeGrade ID in om alle informatie van je gegraded kaart te bekijken.',
+    en: 'Enter your PokeGrade ID to view all information about your graded card.'
+  },
+  'lookup.pg_id_label': {
+    nl: 'PokeGrade ID',
+    en: 'PokeGrade ID'
+  },
+  'lookup.pg_id_placeholder': {
+    nl: 'Bijv. PG-20250906-001',
+    en: 'e.g. PG-20250906-001'
+  },
+  'lookup.search_button': {
+    nl: 'Kaart Opzoeken',
+    en: 'Search Card'
+  },
+  'lookup.card_info': {
+    nl: 'Kaart Informatie',
+    en: 'Card Information'
+  },
+  'lookup.grade': {
+    nl: 'Grade',
+    en: 'Grade'
+  },
+  'lookup.date_graded': {
+    nl: 'Datum Gegraded',
+    en: 'Date Graded'
+  },
+  'lookup.card_name': {
+    nl: 'Kaart Naam',
+    en: 'Card Name'
+  },
+  'lookup.set_name': {
+    nl: 'Set Naam',
+    en: 'Set Name'
+  },
+  'lookup.year': {
+    nl: 'Jaar',
+    en: 'Year'
+  },
+  'lookup.language': {
+    nl: 'Taal',
+    en: 'Language'
+  },
+  'lookup.pokemon_number': {
+    nl: 'Pokémon Nummer',
+    en: 'Pokemon Number'
+  },
+  'lookup.subgrades': {
+    nl: 'Subgrades',
+    en: 'Subgrades'
+  },
+  'lookup.centering': {
+    nl: 'Centrering',
+    en: 'Centering'
+  },
+  'lookup.corners': {
+    nl: 'Hoeken',
+    en: 'Corners'
+  },
+  'lookup.edges': {
+    nl: 'Randen',
+    en: 'Edges'
+  },
+  'lookup.surface': {
+    nl: 'Oppervlak',
+    en: 'Surface'
+  },
+  'lookup.verified': {
+    nl: 'Geverifieerd',
+    en: 'Verified'
+  },
+  'lookup.not_found': {
+    nl: 'Kaart niet gevonden',
+    en: 'Card not found'
+  },
+  'lookup.not_found_desc': {
+    nl: 'De ingevoerde PokeGrade ID kon niet worden gevonden. Controleer het ID en probeer opnieuw.',
+    en: 'The entered PokeGrade ID could not be found. Please check the ID and try again.'
+  },
+  'lookup.error': {
+    nl: 'Er is een fout opgetreden',
+    en: 'An error occurred'
+  },
+  'lookup.error_desc': {
+    nl: 'Er is een fout opgetreden bij het ophalen van de kaartinformatie. Probeer het later opnieuw.',
+    en: 'An error occurred while retrieving the card information. Please try again later.'
+  },
+  'lookup.invalid_id': {
+    nl: 'Ongeldig ID formaat',
+    en: 'Invalid ID format'
+  },
+  'lookup.invalid_id_desc': {
+    nl: 'Het PokeGrade ID moet het formaat PG-YYYYMMDD-XXX hebben.',
+    en: 'The PokeGrade ID must have the format PG-YYYYMMDD-XXX.'
+  },
+  'lookup.try_again': {
+    nl: 'Probeer Opnieuw',
+    en: 'Try Again'
+  },
+  'lookup.qr_section': {
+    nl: 'Of scan de QR code',
+    en: 'Or scan the QR code'
+  },
+  'lookup.scan_qr': {
+    nl: 'QR Code Scannen',
+    en: 'Scan QR Code'
+  },
+  'lookup.search_failed': {
+    nl: 'Zoeken mislukt',
+    en: 'Search failed'
+  },
+  'lookup.card_found': {
+    nl: 'Kaart gevonden',
+    en: 'Card found'
+  },
+  'lookup.search_time': {
+    nl: 'Gezocht om',
+    en: 'Searched at'
+  },
+  'lookup.no_results': {
+    nl: 'Geen resultaten',
+    en: 'No results'
+  },
+  'lookup.invalid_qr': {
+    nl: 'Ongeldige QR code',
+    en: 'Invalid QR code'
   }
 };
 
