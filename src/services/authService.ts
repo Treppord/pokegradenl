@@ -1,5 +1,6 @@
 import { api, handleApiError } from './api';
 import { AuthResponse, LoginForm, RegisterForm, User } from '@/types';
+import { createClient } from '@/lib/supabase/client';
 
 export const authService = {
   // Login user
@@ -35,6 +36,36 @@ export const authService = {
       }
       
       return response.data.data;
+    } catch (error) {
+      throw new Error(handleApiError(error));
+    }
+  },
+
+  // Google OAuth login
+  signInWithGoogle: async (): Promise<{ url: string }> => {
+    try {
+      const supabase = createClient();
+      
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
+        },
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (!data.url) {
+        throw new Error('No redirect URL provided');
+      }
+
+      return { url: data.url };
     } catch (error) {
       throw new Error(handleApiError(error));
     }

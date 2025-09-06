@@ -102,6 +102,21 @@ export function useAuth() {
     }
   };
 
+  const signInWithGoogle = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const { url } = await authService.signInWithGoogle();
+      window.location.href = url;
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Google sign-in failed';
+      setError(errorMessage);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     user,
     loading,
@@ -110,6 +125,7 @@ export function useAuth() {
     login,
     register,
     logout,
+    signInWithGoogle,
     updatePassword,
     requestPasswordReset,
     resetPassword,
