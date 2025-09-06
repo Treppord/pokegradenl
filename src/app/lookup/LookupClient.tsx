@@ -27,6 +27,8 @@ export default function LookupClient() {
   const [error, setError] = useState<string | null>(null);
   const [searchPerformed, setSearchPerformed] = useState(false);
 
+
+
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -43,8 +45,16 @@ export default function LookupClient() {
     try {
       const result = await pokegradeService.lookupCard(pgId.trim().toUpperCase());
       
+      console.log('Frontend received result:', result);
+      console.log('Result has success:', result.success);
+      console.log('Result has card:', !!result.card);
+      console.log('Type of result:', typeof result);
+      console.log('Full result JSON:', JSON.stringify(result, null, 2));
+      
       if (result.success && result.card) {
+        console.log('Setting card data:', result.card);
         setCardData(result.card);
+        setError(null);
       } else {
         switch (result.code) {
           case 'INVALID_FORMAT':
@@ -56,9 +66,11 @@ export default function LookupClient() {
           default:
             setError(t('lookup.error'));
         }
+        setCardData(null);
       }
     } catch (err) {
       setError(t('lookup.error'));
+      setCardData(null);
     } finally {
       setLoading(false);
     }
@@ -166,206 +178,227 @@ export default function LookupClient() {
         </div>
       </section>
 
-      {/* Results Section */}
-      {searchPerformed && (
-        <section className="pb-12 bg-white">
+      {/* Card Information Panel */}
+      {searchPerformed && cardData && (
+        <section className="py-8 bg-white">
           <div className="container-custom">
             <div className="max-w-4xl mx-auto">
-              {/* Error State */}
-              {error && (
-                <Card className="border-red-200 bg-red-50">
-                  <CardContent className="flex items-start space-x-4">
-                    <XCircleIcon className="h-6 w-6 text-red-500 flex-shrink-0 mt-1" />
-                    <div>
-                      <h3 className="text-lg font-semibold text-red-900 mb-2">
-                        {error === t('lookup.invalid_id') && t('lookup.invalid_id')}
-                        {error === t('lookup.not_found') && t('lookup.not_found')}
-                        {error === t('lookup.error') && t('lookup.error')}
-                      </h3>
-                      <p className="text-red-700">
-                        {error === t('lookup.invalid_id') && t('lookup.invalid_id_desc')}
-                        {error === t('lookup.not_found') && t('lookup.not_found_desc')}
-                        {error === t('lookup.error') && t('lookup.error_desc')}
-                      </p>
+              {/* Header Card */}
+              <Card className="bg-gradient-to-r from-primary-50 to-secondary-50 mb-6">
+                <CardContent>
+                  <div className="flex items-center justify-between flex-wrap gap-4">
+                    <div className="flex items-center space-x-3">
+                      <CheckCircleIcon className="h-8 w-8 text-green-500" />
+                      <div>
+                        <h2 className="text-2xl font-bold text-neutral-900">
+                          {cardData.card_name || 'Unknown Card'}
+                        </h2>
+                        <p className="text-neutral-600">
+                          {cardData.pokegrade_id || pgId} • Verified
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <div className={`px-4 py-2 rounded-lg font-bold text-2xl ${getGradeColor(cardData.grade || 0)}`}>
+                        <StarIcon className="h-5 w-5 inline mr-1" />
+                        {cardData.grade || 'N/A'}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Card Details Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                {/* Basic Information */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <IdentificationIcon className="h-5 w-5 text-primary-500 mr-2" />
+                      Card Information
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {cardData.card_name && (
+                      <div className="flex justify-between">
+                        <span className="text-neutral-600">Card Name:</span>
+                        <span className="font-medium">{cardData.card_name}</span>
+                      </div>
+                    )}
+                    
+                    {cardData.set_name && (
+                      <div className="flex justify-between">
+                        <span className="text-neutral-600">Set Name:</span>
+                        <span className="font-medium">{cardData.set_name}</span>
+                      </div>
+                    )}
+                    
+                    {cardData.year && (
+                      <div className="flex justify-between">
+                        <span className="text-neutral-600">Year:</span>
+                        <span className="font-medium">{cardData.year}</span>
+                      </div>
+                    )}
+                    
+                    {cardData.language && (
+                      <div className="flex justify-between">
+                        <span className="text-neutral-600">Language:</span>
+                        <span className="font-medium">{cardData.language}</span>
+                      </div>
+                    )}
+                    
+                    {cardData.pokemon_number && cardData.pokemon_total && (
+                      <div className="flex justify-between">
+                        <span className="text-neutral-600">Pokemon Number:</span>
+                        <span className="font-medium">{cardData.pokemon_number}/{cardData.pokemon_total}</span>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
+                {/* Grading Information */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <ShieldCheckIcon className="h-5 w-5 text-primary-500 mr-2" />
+                      Grading Details
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {cardData.grade && (
+                      <div className="flex justify-between items-center">
+                        <span className="text-neutral-600">Grade:</span>
+                        <div className={`px-3 py-1 rounded-lg font-bold text-lg ${getGradeColor(cardData.grade)}`}>
+                          {cardData.grade}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {cardData.date_graded && (
+                      <div className="flex justify-between">
+                        <span className="text-neutral-600">Date Graded:</span>
+                        <span className="font-medium flex items-center">
+                          <CalendarDaysIcon className="h-4 w-4 mr-1" />
+                          {formatDate(cardData.date_graded)}
+                        </span>
+                      </div>
+                    )}
+                    
+                    <div className="flex justify-between">
+                      <span className="text-neutral-600">PokeGrade ID:</span>
+                      <span className="font-mono text-sm font-medium">{cardData.pokegrade_id || pgId}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Subgrades */}
+              {cardData.sub_grades && (
+                <Card className="mb-6">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <StarIcon className="h-5 w-5 text-primary-500 mr-2" />
+                      Subgrades
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {cardData.sub_grades.centering && (
+                        <div className="text-center">
+                          <p className="text-neutral-600 text-sm mb-1">Centering</p>
+                          <div className={`px-3 py-2 rounded-lg font-bold ${getGradeColor(cardData.sub_grades.centering)}`}>
+                            {cardData.sub_grades.centering}
+                          </div>
+                        </div>
+                      )}
+                      
+                      {cardData.sub_grades.corners && (
+                        <div className="text-center">
+                          <p className="text-neutral-600 text-sm mb-1">Corners</p>
+                          <div className={`px-3 py-2 rounded-lg font-bold ${getGradeColor(cardData.sub_grades.corners)}`}>
+                            {cardData.sub_grades.corners}
+                          </div>
+                        </div>
+                      )}
+                      
+                      {cardData.sub_grades.edges && (
+                        <div className="text-center">
+                          <p className="text-neutral-600 text-sm mb-1">Edges</p>
+                          <div className={`px-3 py-2 rounded-lg font-bold ${getGradeColor(cardData.sub_grades.edges)}`}>
+                            {cardData.sub_grades.edges}
+                          </div>
+                        </div>
+                      )}
+                      
+                      {cardData.sub_grades.surface && (
+                        <div className="text-center">
+                          <p className="text-neutral-600 text-sm mb-1">Surface</p>
+                          <div className={`px-3 py-2 rounded-lg font-bold ${getGradeColor(cardData.sub_grades.surface)}`}>
+                            {cardData.sub_grades.surface}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
               )}
 
-              {/* Success State - Card Information */}
-              {cardData && (
-                <div className="space-y-6">
-                  {/* Header Card */}
-                  <Card className="bg-gradient-to-r from-primary-50 to-secondary-50">
-                    <CardContent>
-                      <div className="flex items-center justify-between flex-wrap gap-4">
-                        <div className="flex items-center space-x-3">
-                          <CheckCircleIcon className="h-8 w-8 text-green-500" />
-                          <div>
-                            <h2 className="text-2xl font-bold text-neutral-900">
-                              {cardData.card_name}
-                            </h2>
-                            <p className="text-neutral-600">
-                              {cardData.pokegrade_id} • {t('lookup.verified')}
-                            </p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center space-x-2">
-                          <div className={`px-4 py-2 rounded-lg font-bold text-2xl ${getGradeColor(cardData.grade)}`}>
-                            <StarIcon className="h-5 w-5 inline mr-1" />
-                            {cardData.grade}
-                          </div>
-                        </div>
+              {/* QR Code */}
+              {cardData.qr_code_url && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <QrCodeIcon className="h-5 w-5 text-primary-500 mr-2" />
+                      QR Code
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                      <div className="bg-white p-4 rounded-lg shadow-sm border">
+                        <img
+                          src={cardData.qr_code_url}
+                          alt={`QR code for ${cardData.card_name}`}
+                          className="w-32 h-32"
+                        />
                       </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Basic Information */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-center">
-                          <IdentificationIcon className="h-5 w-5 text-primary-500 mr-2" />
-                          {t('lookup.card_info')}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-3">
-                        <div className="flex justify-between">
-                          <span className="text-neutral-600">{t('lookup.card_name')}:</span>
-                          <span className="font-medium">{cardData.card_name}</span>
-                        </div>
-                        
-                        <div className="flex justify-between">
-                          <span className="text-neutral-600">{t('lookup.set_name')}:</span>
-                          <span className="font-medium">{cardData.set_name}</span>
-                        </div>
-                        
-                        <div className="flex justify-between">
-                          <span className="text-neutral-600">{t('lookup.year')}:</span>
-                          <span className="font-medium">{cardData.year}</span>
-                        </div>
-                        
-                        <div className="flex justify-between">
-                          <span className="text-neutral-600">{t('lookup.language')}:</span>
-                          <span className="font-medium">{cardData.language}</span>
-                        </div>
-                        
-                        {cardData.pokemon_number && cardData.pokemon_total && (
-                          <div className="flex justify-between">
-                            <span className="text-neutral-600">{t('lookup.pokemon_number')}:</span>
-                            <span className="font-medium">{cardData.pokemon_number}/{cardData.pokemon_total}</span>
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-center">
-                          <ShieldCheckIcon className="h-5 w-5 text-primary-500 mr-2" />
-                          {t('lookup.grade')} & {t('lookup.date_graded')}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-3">
-                        <div className="flex justify-between items-center">
-                          <span className="text-neutral-600">{t('lookup.grade')}:</span>
-                          <div className={`px-3 py-1 rounded-lg font-bold text-lg ${getGradeColor(cardData.grade)}`}>
-                            {cardData.grade}
-                          </div>
-                        </div>
-                        
-                        <div className="flex justify-between">
-                          <span className="text-neutral-600">{t('lookup.date_graded')}:</span>
-                          <span className="font-medium flex items-center">
-                            <CalendarDaysIcon className="h-4 w-4 mr-1" />
-                            {formatDate(cardData.date_graded)}
-                          </span>
-                        </div>
-                        
-                        <div className="flex justify-between">
-                          <span className="text-neutral-600">PokeGrade ID:</span>
-                          <span className="font-mono text-sm font-medium">{cardData.pokegrade_id}</span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  {/* Subgrades */}
-                  {cardData.sub_grades && (
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-center">
-                          <StarIcon className="h-5 w-5 text-primary-500 mr-2" />
-                          {t('lookup.subgrades')}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                          <div className="text-center">
-                            <p className="text-neutral-600 text-sm mb-1">{t('lookup.centering')}</p>
-                            <div className={`px-3 py-2 rounded-lg font-bold ${getGradeColor(cardData.sub_grades.centering)}`}>
-                              {cardData.sub_grades.centering}
-                            </div>
-                          </div>
-                          
-                          <div className="text-center">
-                            <p className="text-neutral-600 text-sm mb-1">{t('lookup.corners')}</p>
-                            <div className={`px-3 py-2 rounded-lg font-bold ${getGradeColor(cardData.sub_grades.corners)}`}>
-                              {cardData.sub_grades.corners}
-                            </div>
-                          </div>
-                          
-                          <div className="text-center">
-                            <p className="text-neutral-600 text-sm mb-1">{t('lookup.edges')}</p>
-                            <div className={`px-3 py-2 rounded-lg font-bold ${getGradeColor(cardData.sub_grades.edges)}`}>
-                              {cardData.sub_grades.edges}
-                            </div>
-                          </div>
-                          
-                          <div className="text-center">
-                            <p className="text-neutral-600 text-sm mb-1">{t('lookup.surface')}</p>
-                            <div className={`px-3 py-2 rounded-lg font-bold ${getGradeColor(cardData.sub_grades.surface)}`}>
-                              {cardData.sub_grades.surface}
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )}
-
-                  {/* QR Code */}
-                  {cardData.qr_code_url && (
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-center">
-                          <QrCodeIcon className="h-5 w-5 text-primary-500 mr-2" />
-                          QR Code
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
-                          <div className="bg-white p-4 rounded-lg shadow-sm border">
-                            <img
-                              src={cardData.qr_code_url}
-                              alt={`QR code for ${cardData.card_name}`}
-                              className="w-32 h-32"
-                            />
-                          </div>
-                          <div className="text-center sm:text-left">
-                            <p className="text-neutral-600 mb-2">
-                              Scan deze QR code om snel toegang te krijgen tot deze kaart informatie.
-                            </p>
-                            <p className="text-sm text-neutral-500">
-                              QR code bevat: {cardData.pokegrade_id}
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )}
-                </div>
+                      <div className="text-center sm:text-left">
+                        <p className="text-neutral-600 mb-2">
+                          Scan this QR code to quickly access this card information.
+                        </p>
+                        <p className="text-sm text-neutral-500">
+                          QR code contains: {cardData.pokegrade_id || pgId}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Error State */}
+      {searchPerformed && error && (
+        <section className="py-8 bg-white">
+          <div className="container-custom">
+            <div className="max-w-4xl mx-auto">
+              <Card className="border-red-200 bg-red-50">
+                <CardContent className="flex items-start space-x-4">
+                  <XCircleIcon className="h-6 w-6 text-red-500 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-lg font-semibold text-red-900 mb-2">
+                      {error}
+                    </h3>
+                    <p className="text-red-700">
+                      {error === t('lookup.invalid_id') && t('lookup.invalid_id_desc')}
+                      {error === t('lookup.not_found') && t('lookup.not_found_desc')}
+                      {(error === t('lookup.error') || (!error?.includes('not found') && !error?.includes('Invalid'))) && t('lookup.error_desc')}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>

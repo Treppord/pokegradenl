@@ -552,6 +552,22 @@ const translations = {
   'lookup.scan_qr': {
     nl: 'QR Code Scannen',
     en: 'Scan QR Code'
+  },
+  'lookup.search_failed': {
+    nl: 'Zoeken mislukt',
+    en: 'Search failed'
+  },
+  'lookup.card_found': {
+    nl: 'Kaart gevonden',
+    en: 'Card found'
+  },
+  'lookup.search_time': {
+    nl: 'Gezocht om',
+    en: 'Searched at'
+  },
+  'lookup.no_results': {
+    nl: 'Geen resultaten',
+    en: 'No results'
   }
 };
 
