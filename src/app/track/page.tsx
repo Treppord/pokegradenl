@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
@@ -79,6 +80,7 @@ const mockTrackingData = {
 };
 
 export default function TrackPage() {
+  const { t } = useLanguage();
   const [submissionId, setSubmissionId] = useState('');
   const [trackingData, setTrackingData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -127,10 +129,10 @@ export default function TrackPage() {
         <div className="container-custom">
           <div className="text-center">
             <h1 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
-              Track Your Submission
+              {t('track.hero_title')}
             </h1>
             <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-              Enter your submission ID to get real-time updates on your card grading progress.
+              {t('track.hero_desc')}
             </p>
           </div>
         </div>

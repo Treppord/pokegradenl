@@ -1,0 +1,615 @@
+import type { Metadata } from 'next';
+import { Layout } from '@/components/layout/Layout';
+import { Button } from '@/components/ui/Button';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/Card';
+import Link from 'next/link';
+import { 
+  ShieldCheckIcon, 
+  ClockIcon, 
+  CurrencyEuroIcon,
+  StarIcon,
+  CheckCircleIcon,
+  QuestionMarkCircleIcon,
+  DocumentTextIcon,
+  MagnifyingGlassIcon,
+  TrophyIcon,
+  ChartBarIcon,
+  CameraIcon,
+  LockClosedIcon
+} from '@heroicons/react/24/outline';
+
+export const metadata: Metadata = {
+  title: 'PSA Grading Nederland & Pokémon Kaarten Grading Kosten | PokeGrade Services',
+  description: 'Professional Pokémon kaarten grading service Nederland. PSA grading alternative met snelle doorlooptijd. Grading kosten vanaf €15. Beckett grading Nederland. Pokemon card grading cost Netherlands explained.',
+  keywords: [
+    // Dutch keywords
+    'PSA grading Nederland',
+    'Beckett grading Nederland', 
+    'Pokémon kaarten grading kosten',
+    'Pokémon kaarten grading prijzen',
+    'TCG grading service Nederland',
+    'Pokemon kaarten authenticatie kosten',
+    'Pokémon grading Amsterdam',
+    'Pokemon grading Rotterdam',
+    'Pokemon grading Utrecht',
+    // English keywords  
+    'PSA grading Netherlands',
+    'Beckett grading Netherlands',
+    'Pokemon card grading cost Netherlands',
+    'Pokemon card grading prices NL',
+    'Pokemon card authentication Netherlands',
+    'professional card grading Netherlands',
+    'Pokemon grading service Amsterdam',
+    'TCG grading Netherlands pricing',
+  ],
+  openGraph: {
+    title: 'PSA Grading Nederland & Pokemon Card Grading Cost Netherlands',
+    description: 'Professional Pokémon card grading services with transparent pricing. PSA alternative with fast turnaround times from €15 per card.',
+    url: '/services',
+  },
+};
+
+const pricingTiers = [
+  {
+    name: 'Value',
+    price: '€15',
+    originalPrice: null,
+    turnaround: '20 werkdagen | 20 business days',
+    maxValue: '€500',
+    popular: false,
+    features: [
+      'Professionele 10-punt grading schaal | Professional 10-point grading scale',
+      'Sabotage-resistente beschermende slab | Tamper-evident protective slab',
+      'Online bestelling tracking | Online order tracking',
+      'Hoge resolutie kaart fotografie | High-resolution card photography',
+      'Basis grading rapport | Basic grading report',
+      'Standaard verzending inbegrepen | Standard shipping included',
+    ],
+    limitations: [
+      'Geen subgrade scoring | No subgrade scoring',
+      'Standaard verwerkingswachtrij | Standard processing queue',
+    ],
+    recommendation: 'Perfect voor moderne kaarten en budget-bewuste verzamelaars | Perfect for modern cards and budget-conscious collectors',
+  },
+  {
+    name: 'Standard',
+    price: '€25',
+    originalPrice: '€30',
+    turnaround: '10 werkdagen | 10 business days',
+    maxValue: '€2,500',
+    popular: true,
+    features: [
+      'Professionele 10-punt grading schaal | Professional 10-point grading scale',
+      'Gedetailleerde subgrade analyse (Centrering, Hoeken, Randen, Oppervlak) | Detailed subgrade analysis',
+      'Premium beschermende slab | Premium protective slab',
+      'Prioriteit verwerking | Priority processing',
+      'Online bestelling tracking met updates | Online order tracking with updates',
+      'Hoge resolutie kaart fotografie (meerdere hoeken) | High-resolution photography (multiple angles)',
+      'Gedetailleerd grading rapport met analyse | Detailed grading report with analysis',
+      'Express verzending inbegrepen | Express shipping included',
+    ],
+    limitations: [],
+    recommendation: 'Populairste keuze voor waardevolle vintage en moderne kaarten | Most popular choice for valuable vintage and modern cards',
+  },
+  {
+    name: 'Premium',
+    price: '€45',
+    originalPrice: '€55',
+    turnaround: '5 werkdagen | 5 business days',
+    maxValue: '€10,000',
+    popular: false,
+    features: [
+      'Professionele 10-punt grading schaal | Professional 10-point grading scale',
+      'Gedetailleerde subgrade analyse | Detailed subgrade analysis (Centering, Corners, Edges, Surface)',
+      'Ultra-premium beschermende slab | Ultra-premium protective slab',
+      'Express verwerking (topprioriteit) | Express processing (top priority)',
+      'Real-time bestelling tracking | Real-time order tracking',
+      'Professionele fotosessie (6+ hoeken) | Professional photography session (6+ angles)',
+      'Uitgebreid grading rapport | Comprehensive grading report with detailed analysis',
+      'Telefoon consultatie beschikbaar | Phone consultation available',
+      'Overnight verzending inbegrepen | Overnight shipping included',
+      'Verzekeringsdekking tot kaartwaarde | Insurance coverage up to card value',
+    ],
+    limitations: [],
+    recommendation: 'Ideaal voor hoogwaardige vintage kaarten en toernooiprijzen | Ideal for high-value vintage cards and tournament prizes',
+  },
+];
+
+const gradingStandards = [
+  {
+    grade: 'Gem Mint 10',
+    description: 'Perfecte kaart met scherpe hoeken, perfecte centrering en onberispelijk oppervlak | Perfect card with sharp corners, perfect centering, and pristine surface',
+    color: 'text-green-600',
+    bgColor: 'bg-green-50',
+    borderColor: 'border-green-200',
+  },
+  {
+    grade: 'Mint 9',
+    description: 'Uitzonderlijke kaart met minimale slijtage, bijna perfecte centrering | Exceptional card with minimal wear, near-perfect centering',
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-50',
+    borderColor: 'border-blue-200',
+  },
+  {
+    grade: 'Near Mint-Mint 8.5',
+    description: 'Uitstekende kaart met lichte slijtage, zeer goede centrering | Excellent card with slight wear, very good centering',
+    color: 'text-indigo-600',
+    bgColor: 'bg-indigo-50',
+    borderColor: 'border-indigo-200',
+  },
+  {
+    grade: 'Near Mint 8',
+    description: 'Zeer goede kaart met kleine gebreken, goede centrering | Very good card with minor flaws, good centering',
+    color: 'text-purple-600',
+    bgColor: 'bg-purple-50',
+    borderColor: 'border-purple-200',
+  },
+  {
+    grade: 'Excellent-Near Mint 7.5',
+    description: 'Goede kaart met enige slijtage, acceptabele centrering | Good card with some wear, acceptable centering',
+    color: 'text-pink-600',
+    bgColor: 'bg-pink-50',
+    borderColor: 'border-pink-200',
+  },
+  {
+    grade: 'Excellent 7',
+    description: 'Kaart met merkbare slijtage maar nog steeds verzamelbaar | Card with noticeable wear but still collectible',
+    color: 'text-orange-600',
+    bgColor: 'bg-orange-50',
+    borderColor: 'border-orange-200',
+  },
+];
+
+const subgradeCategories = [
+  {
+    icon: ChartBarIcon,
+    name: 'Centrering | Centering',
+    description: 'Evalueert hoe gelijkmatig de kaartafbeelding binnen de randen is gepositioneerd | Evaluates how evenly the card image is positioned within the borders',
+    details: 'Gemeten als percentages (bijv. 50/50 is perfect, 60/40 is acceptabel) | Measured as percentages (e.g., 50/50 is perfect, 60/40 is acceptable)',
+  },
+  {
+    icon: TrophyIcon,
+    name: 'Hoeken | Corners',
+    description: 'Beoordeelt de scherpte en conditie van alle vier hoeken | Assesses the sharpness and condition of all four corners',
+    details: 'Onderzoekt op afronding, slijtage, witmaking en schade | Examines for rounding, wear, whitening, and damage',
+  },
+  {
+    icon: DocumentTextIcon,
+    name: 'Randen | Edges',
+    description: 'Beoordeelt de conditie van alle kaartranden op slijtage en schade | Reviews the condition of all card edges for wear and damage',
+    details: 'Controleert op ruwheid, witmaking, krassen en schilfering | Checks for roughness, whitening, nicks, and chipping',
+  },
+  {
+    icon: StarIcon,
+    name: 'Oppervlak | Surface',
+    description: 'Analyseert het kaartoppervlak op krassen, drukfouten en vlekken | Analyzes the card surface for scratches, print defects, and stains',
+    details: 'Inclusief folie conditie, drukkwaliteit en oppervlakte integriteit | Includes foil condition, print quality, and surface integrity',
+  },
+];
+
+const faqs = [
+  {
+    question: 'Hoe lang duurt het grading proces? | How long does the grading process take?',
+    answer: 'Doorlooptijden variëren per service tier: Value (20 werkdagen), Standard (10 werkdagen), en Premium (5 werkdagen). Deze tijden beginnen vanaf wanneer we je kaarten ontvangen. | Turnaround times vary by service tier: Value (20 business days), Standard (10 business days), and Premium (5 business days). These times start from when we receive your cards at our facility.',
+  },
+  {
+    question: 'Wat is de maximale kaartwaarde voor elke service? | What is the maximum card value for each service?',
+    answer: 'Value tier accepteert kaarten tot €500, Standard tier tot €2.500, en Premium tier tot €10.000. Voor kaarten die deze waarden overschrijden, neem contact met ons op voor aangepaste prijzen. | Value tier accepts cards up to €500, Standard tier up to €2,500, and Premium tier up to €10,000. For cards exceeding these values, please contact us for custom pricing.',
+  },
+  {
+    question: 'Gradeer je kaarten van alle TCG sets? | Do you grade cards from all TCG sets?',
+    answer: 'Ja, we graderen Pokémon kaarten van alle sets, inclusief Base Set, Neo, e-Card, EX, Diamond & Pearl, Black & White, XY, Sun & Moon, en Sword & Shield series. | Yes, we grade Pokémon cards from all sets, including Base Set, Neo, e-Card, EX, Diamond & Pearl, Black & White, XY, Sun & Moon, and Sword & Shield series.',
+  },
+  {
+    question: 'Welke authenticatiemethoden gebruik je? | What authentication methods do you use?',
+    answer: 'We gebruiken geavanceerde scantechnologie, UV-lichtanalyse en expert authenticatie om veranderde, hergedrukte of namaak kaarten te detecteren. Ons team heeft meer dan 10 jaar ervaring in TCG authenticatie. | We use advanced scanning technology, UV light analysis, and expert authentication to detect altered, reprinted, or counterfeit cards. Our team has over 10 years of experience in TCG authentication.',
+  },
+  {
+    question: 'Kan ik mijn bestelling online volgen? | Can I track my order online?',
+    answer: 'Ja, alle bestellingen bevatten online tracking. Je ontvangt updates wanneer we je kaarten ontvangen, tijdens het graderen en wanneer ze terug naar je verzonden worden. Premium klanten ontvangen ook telefoon updates. | Yes, all orders include online tracking. You\'ll receive updates when we receive your cards, during grading, and when they ship back to you. Premium customers also receive phone updates.',
+  },
+];
+
+export default function ServicesPage() {
+  return (
+    <Layout>
+      {/* Hero Section - SEO Optimized */}
+      <section className="relative bg-gradient-to-br from-primary-50 to-secondary-50 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-secondary-500/5"></div>
+        <div className="container-custom py-16 lg:py-24 relative">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-4xl lg:text-5xl font-heading font-bold text-neutral-900 mb-6 leading-tight">
+              <span className="text-gradient">PSA Grading Nederland</span> & Pokémon Kaarten Grading Services
+            </h1>
+            <p className="text-lg lg:text-xl text-neutral-600 mb-8 leading-relaxed">
+              Professional <strong>Pokémon kaarten grading kosten</strong> vanaf €15 per kaart. 
+              Kies uit onze uitgebreide grading tiers voor elke verzamelaar. 
+              <strong>PSA grading alternative</strong> with <strong>Beckett grading Netherlands</strong> quality standards.
+            </p>
+            
+            {/* Key benefits with local SEO */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-sm">
+              <div className="bg-white/50 rounded-lg p-4">
+                <h3 className="font-semibold text-primary-600">Amsterdam | Rotterdam | Utrecht</h3>
+                <p className="text-neutral-600">Servicing all of Netherlands</p>
+              </div>
+              <div className="bg-white/50 rounded-lg p-4">
+                <h3 className="font-semibold text-primary-600">Pokemon Card Grading Cost</h3>
+                <p className="text-neutral-600">Transparent pricing €15-€45</p>
+              </div>
+              <div className="bg-white/50 rounded-lg p-4">
+                <h3 className="font-semibold text-primary-600">Fast Turnaround</h3>
+                <p className="text-neutral-600">5-20 business days</p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/submit">
+                <Button size="lg" className="w-full sm:w-auto">
+                  Stuur Kaarten In | Submit Cards Now
+                </Button>
+              </Link>
+              <Link href="#pricing">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                  Grading Prijzen | View Pricing
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Tiers - Enhanced with bilingual content */}
+      <section id="pricing" className="py-20 bg-white">
+        <div className="container-custom">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
+              Pokémon Kaarten Grading Kosten & Pricing Netherlands
+            </h2>
+            <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
+              Elke tier biedt verschillende functies en doorlooptijden voor jouw specifieke behoeften en budget. 
+              <strong>PSA grading Nederland alternative</strong> met transparante prijzen.
+              Each tier offers different features and turnaround times to match your specific needs and budget.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            {pricingTiers.map((tier) => (
+              <Card 
+                key={tier.name} 
+                className={`text-center relative ${
+                  tier.popular 
+                    ? 'ring-2 ring-primary-500 transform lg:scale-105 shadow-xl' 
+                    : 'hover:shadow-lg'
+                }`}
+                padding="lg"
+              >
+                {tier.popular && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-primary-500 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg">
+                      Populairste | Most Popular
+                    </span>
+                  </div>
+                )}
+                
+                <CardHeader>
+                  <CardTitle className="text-2xl font-bold text-neutral-900">
+                    {tier.name}
+                  </CardTitle>
+                  <div className="mt-4">
+                    <div className="flex items-center justify-center">
+                      <span className="text-5xl font-bold text-primary-500">
+                        {tier.price}
+                      </span>
+                      <span className="text-neutral-600 ml-2">per kaart | per card</span>
+                    </div>
+                    {tier.originalPrice && (
+                      <div className="mt-1">
+                        <span className="text-lg text-neutral-400 line-through">
+                          {tier.originalPrice}
+                        </span>
+                        <span className="text-sm text-green-600 ml-2 font-semibold">
+                          Bespaar | Save {parseInt(tier.originalPrice.slice(1)) - parseInt(tier.price.slice(1))}€
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-4 space-y-2">
+                    <div className="flex items-center justify-center text-neutral-600">
+                      <ClockIcon className="h-5 w-5 mr-2" />
+                      <span>{tier.turnaround}</span>
+                    </div>
+                    <div className="flex items-center justify-center text-neutral-600">
+                      <CurrencyEuroIcon className="h-5 w-5 mr-2" />
+                      <span>Max waarde | Max value: {tier.maxValue}</span>
+                    </div>
+                  </div>
+                </CardHeader>
+                
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-neutral-900 mb-3 text-left">Inbegrepen Functies | Included Features:</h4>
+                      <ul className="space-y-2 text-left">
+                        {tier.features.map((feature, index) => (
+                          <li key={index} className="flex items-start">
+                            <CheckCircleIcon className="h-5 w-5 text-success flex-shrink-0 mt-0.5 mr-3" />
+                            <span className="text-sm text-neutral-700">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    {tier.limitations.length > 0 && (
+                      <div>
+                        <h4 className="font-semibold text-neutral-900 mb-3 text-left">Beperkingen | Limitations:</h4>
+                        <ul className="space-y-2 text-left">
+                          {tier.limitations.map((limitation, index) => (
+                            <li key={index} className="flex items-start">
+                              <div className="h-5 w-5 flex-shrink-0 mt-0.5 mr-3">
+                                <div className="h-2 w-2 bg-neutral-400 rounded-full mt-1.5"></div>
+                              </div>
+                              <span className="text-sm text-neutral-600">{limitation}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+                
+                <CardFooter>
+                  <div className="text-center">
+                    <p className="text-sm text-neutral-600 mb-4 italic">
+                      {tier.recommendation}
+                    </p>
+                    <Link href="/submit" className="w-full block">
+                      <Button 
+                        variant={tier.popular ? 'primary' : 'outline'} 
+                        size="lg" 
+                        className="w-full"
+                      >
+                        Kies {tier.name} | Choose {tier.name}
+                      </Button>
+                    </Link>
+                  </div>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+
+          <div className="bg-neutral-50 rounded-2xl p-8 text-center">
+            <div className="max-w-2xl mx-auto">
+              <h3 className="text-xl font-semibold text-neutral-900 mb-4">
+                Iets Anders Nodig? | Need Something Different?
+              </h3>
+              <p className="text-neutral-600 mb-6">
+                Heb je kaarten ter waarde van meer dan €10.000 of heb je een aangepaste service nodig? 
+                Neem contact met ons op voor gepersonaliseerde prijzen en white-glove service opties.
+                Have cards worth more than €10,000 or need a custom service? 
+                Contact us for personalized pricing and white-glove service options.
+              </p>
+              <Link href="/contact">
+                <Button variant="outline" size="lg">
+                  Contact voor Aangepaste Prijzen | Contact for Custom Pricing
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Grading Standards - Bilingual */}
+      <section className="py-20 bg-neutral-50">
+        <div className="container-custom">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
+              Onze Grading Standaarden | Our Grading Standards
+            </h2>
+            <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
+              Wij gebruiken de industrie-standaard 10-punts grading schaal met precieze criteria voor elke grade. 
+              Onze gecertificeerde experts zorgen voor consistente en nauwkeurige grading zoals <strong>PSA grading Nederland</strong> standaarden.
+            </p>
+          </div>
+
+          {/* Grading Scale */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-heading font-semibold text-neutral-900 mb-8 text-center">
+              10-Punts Grading Schaal | 10-Point Grading Scale
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {gradingStandards.map((grade) => (
+                <Card key={grade.grade} className={`${grade.bgColor} ${grade.borderColor} border-2`}>
+                  <CardContent>
+                    <div className="text-center">
+                      <h4 className={`text-lg font-bold ${grade.color} mb-2`}>
+                        {grade.grade}
+                      </h4>
+                      <p className="text-sm text-neutral-700">
+                        {grade.description}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Subgrade Categories */}
+          <div>
+            <h3 className="text-2xl font-heading font-semibold text-neutral-900 mb-8 text-center">
+              Subgrade Analyse | Subgrade Analysis
+            </h3>
+            <p className="text-center text-neutral-600 mb-10 max-w-3xl mx-auto">
+              Standard en Premium tiers bevatten gedetailleerde subgrade analyse over vier belangrijke categorieën. 
+              Elke subgrade wordt individueel gescoord om uitgebreide kaart evaluatie te bieden, vergelijkbaar met <strong>Beckett grading Nederland</strong> standaarden.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {subgradeCategories.map((category) => (
+                <Card key={category.name} className="text-center">
+                  <CardContent>
+                    <category.icon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
+                    <h4 className="text-lg font-semibold text-neutral-900 mb-3">
+                      {category.name}
+                    </h4>
+                    <p className="text-neutral-600 text-sm mb-3">
+                      {category.description}
+                    </p>
+                    <p className="text-neutral-500 text-xs">
+                      {category.details}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Authentication Process */}
+      <section className="py-20 bg-white">
+        <div className="container-custom">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
+              Authenticatie Proces | Authentication Process
+            </h2>
+            <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
+              Elke kaart ondergaat rigoureuze authenticatie voor grading. Ons multi-stap proces 
+              zorgt ervoor dat alleen echte kaarten onze certificering ontvangen. Onze methoden zijn vergelijkbaar met 
+              <strong>PSA grading Nederland</strong> en <strong>Beckett grading</strong> standaarden.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <Card className="text-center">
+              <CardContent>
+                <MagnifyingGlassIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                  Visuele Inspectie | Visual Inspection
+                </h3>
+                <p className="text-neutral-600 text-sm">
+                  Expert onderzoek van kaart voorraad, drukkwaliteit en ontwerpelementen | Expert examination of card stock, print quality, and design elements
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center">
+              <CardContent>
+                <CameraIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                  Geavanceerd Scannen | Advanced Scanning
+                </h3>
+                <p className="text-neutral-600 text-sm">
+                  Hoge resolutie digitale analyse en UV-licht authenticatie | High-resolution digital analysis and UV light authentication
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center">
+              <CardContent>
+                <DocumentTextIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                  Database Verificatie | Database Verification
+                </h3>
+                <p className="text-neutral-600 text-sm">
+                  Kruisreferentie met uitgebreide database van bekende kaarten en variaties | Cross-reference with comprehensive database of known cards and variations
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center">
+              <CardContent>
+                <LockClosedIcon className="h-12 w-12 text-primary-500 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                  Veilige Inkapseling | Secure Encapsulation
+                </h3>
+                <p className="text-neutral-600 text-sm">
+                  Sabotage-resistente beschermende slab met uniek certificaatsnummer | Tamper-evident protective slab with unique certification number
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section - Bilingual with SEO keywords */}
+      <section className="py-20 bg-neutral-50">
+        <div className="container-custom">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
+              Veelgestelde Vragen | Frequently Asked Questions
+            </h2>
+            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+              Heb je vragen over onze <strong>Pokémon kaarten grading kosten</strong> of <strong>Pokemon card grading Netherlands</strong> services? 
+              Vind antwoorden op veelgestelde vragen hieronder.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-6">
+            {faqs.map((faq, index) => (
+              <Card key={index} className="p-6">
+                <div className="flex items-start">
+                  <QuestionMarkCircleIcon className="h-6 w-6 text-primary-500 flex-shrink-0 mt-1 mr-4" />
+                  <div>
+                    <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                      {faq.question}
+                    </h3>
+                    <p className="text-neutral-600 leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-neutral-600 mb-6">
+              Zie je je vraag niet beantwoord? | Don't see your question answered?
+            </p>
+            <Link href="/contact">
+              <Button variant="outline" size="lg">
+                Contact Ondersteuning | Contact Support
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-primary-500 to-secondary-500">
+        <div className="container-custom text-center">
+          <h2 className="text-3xl lg:text-4xl font-heading font-bold text-white mb-6">
+            Klaar om je Kaarten te Laten Graderen? | Ready to Grade Your Cards?
+          </h2>
+          <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+            Sluit je aan bij duizenden tevreden verzamelaars die PokeGrade vertrouwen voor professionele, 
+            nauwkeurige en veilige <strong>Pokémon kaarten grading services</strong>.
+            Join thousands of satisfied collectors who trust PokeGrade for professional <strong>Pokemon card grading Netherlands</strong>.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/submit">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="w-full sm:w-auto bg-white text-primary-500 border-white hover:bg-neutral-50"
+              >
+                Stuur je Kaarten In | Submit Your Cards
+              </Button>
+            </Link>
+            <Link href="/track">
+              <Button 
+                variant="ghost" 
+                size="lg" 
+                className="w-full sm:w-auto text-white border border-white/30 hover:bg-white/10"
+              >
+                Volg Bestaande Bestelling | Track Existing Order
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
+}

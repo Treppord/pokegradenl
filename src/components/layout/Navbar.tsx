@@ -7,21 +7,27 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Logo } from "./Logo";
 import { LoginModal } from "@/components/ui/LoginModal";
 import { useAuth } from "@/hooks/useAuth";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Grading Services", href: "/services" },
-  { name: "Submit Cards", href: "/submit" },
-  { name: "Track Order", href: "/track" },
-  { name: "About Us", href: "/about" },
-  { name: "Contact", href: "/contact" },
-];
+// Navigation will be dynamically generated with translations
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const pathname = usePathname();
   const { user, logout, isAuthenticated } = useAuth();
+  const { t } = useLanguage();
+
+  // Dynamic navigation with translations
+  const navigation = [
+    { name: t('nav.home'), href: "/" },
+    { name: t('nav.services'), href: "/services" },
+    { name: t('nav.submit'), href: "/submit" },
+    { name: t('nav.track'), href: "/track" },
+    { name: t('nav.about'), href: "/about" },
+    { name: t('nav.contact'), href: "/contact" },
+  ];
 
   const isActive = (href: string) => pathname === href;
 
@@ -59,6 +65,7 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden lg:flex items-center space-x-4">
+          <LanguageToggle />
           {isAuthenticated ? (
             <>
               <span className="text-sm text-gray-600">
@@ -137,6 +144,9 @@ export function Navbar() {
                 ))}
               </div>
               <div className="py-6 space-y-4">
+                <div className="px-3 pb-4">
+                  <LanguageToggle />
+                </div>
                 {isAuthenticated ? (
                   <>
                     <div className="text-sm text-gray-600 px-3">

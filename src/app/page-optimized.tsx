@@ -1,5 +1,3 @@
-'use client';
-
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/Button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
@@ -12,43 +10,71 @@ import {
   TrophyIcon,
   DocumentMagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import { useLanguage } from "@/contexts/LanguageContext";
 
-// Features will be dynamically generated with translations
+const features = [
+  {
+    icon: ShieldCheckIcon,
+    title: "Gecertificeerde Authenticatie | Certified Authentication",
+    description:
+      "Geavanceerde scantechnologie gecombineerd met expert beoordelaars voor authentieke, nauwkeurige grading. Advanced scanning technology with expert human graders ensure authentic, accurate grading.",
+  },
+  {
+    icon: ClockIcon,
+    title: "Snelle Doorlooptijd | Fast Turnaround",
+    description:
+      "Meerdere service opties van 5-dag express tot 20-dag standaard. Multiple service tiers from 5-day express to 20-day standard, fitting your timeline.",
+  },
+  {
+    icon: CurrencyEuroIcon,
+    title: "Scherpe Prijzen | Competitive Pricing",
+    description:
+      "Transparante prijzen vanaf €15 per kaart zonder verborgen kosten. Transparent pricing starting from €15 per card with no hidden fees.",
+  },
+  {
+    icon: DocumentMagnifyingGlassIcon,
+    title: "Uitgebreide Rapporten | Detailed Reports",
+    description:
+      "Uitgebreide grading rapporten met hoge resolutie foto's en gedetailleerde conditie analyse. Comprehensive reports with high-resolution images and detailed condition analysis.",
+  },
+];
 
 const serviceTiers = [
   {
     name: "Value",
     price: "€15",
-    turnaround: "20 business days",
+    turnaround: "20 werkdagen | 20 business days",
     maxValue: "€500",
-    features: ["Standard grading", "Basic protection", "Online tracking"],
+    features: [
+      "Standaard grading | Standard grading", 
+      "Basis bescherming | Basic protection", 
+      "Online tracking"
+    ],
     popular: false,
   },
   {
     name: "Standard",
     price: "€25",
-    turnaround: "10 business days",
+    turnaround: "10 werkdagen | 10 business days",
     maxValue: "€2,500",
     features: [
-      "Priority grading",
-      "Enhanced protection",
+      "Prioriteit grading | Priority grading",
+      "Verbeterde bescherming | Enhanced protection",
       "Online tracking",
-      "Express handling",
+      "Express behandeling | Express handling",
     ],
     popular: true,
   },
   {
     name: "Premium",
     price: "€45",
-    turnaround: "5 business days",
+    turnaround: "5 werkdagen | 5 business days",
     maxValue: "€10,000",
     features: [
       "Express grading",
-      "Maximum protection",
+      "Maximum bescherming | Maximum protection",
       "Online tracking",
-      "Priority handling",
-      "Phone updates",
+      "Prioriteit behandeling | Priority handling",
+      "Telefoon updates | Phone updates",
     ],
     popular: false,
   },
@@ -59,88 +85,68 @@ const testimonials = [
     name: "Mark van der Berg",
     location: "Amsterdam",
     rating: 5,
-    text: "Outstanding service! My vintage Charizard was handled with incredible care. The grading report was thorough and professional.",
+    text: "Uitstekende service! Mijn vintage Charizard werd met ongelooflijke zorg behandeld. Het grading rapport was grondig en professioneel.",
   },
   {
-    name: "Emma Janssen",
+    name: "Emma Janssen", 
     location: "Rotterdam",
     rating: 5,
-    text: "Fast turnaround and competitive prices. PokeGrade has become my go-to for all card authentication needs.",
+    text: "Snelle doorlooptijd en concurrerende prijzen. PokeGrade is mijn go-to voor alle kaart authenticatie behoeften geworden.",
   },
   {
     name: "Thomas de Wit",
-    location: "Utrecht",
+    location: "Utrecht", 
     rating: 5,
-    text: "The online tracking system is amazing. I could follow my cards every step of the way. Highly recommend!",
+    text: "Het online tracking systeem is geweldig. Ik kon mijn kaarten elke stap van de weg volgen. Zeer aan te bevelen!",
   },
 ];
 
 export default function Home() {
-  const { t } = useLanguage();
-  
-  // Dynamic features with translations
-  const features = [
-    {
-      icon: ShieldCheckIcon,
-      title: t('features.auth.title'),
-      description: t('features.auth.desc'),
-    },
-    {
-      icon: ClockIcon,
-      title: t('features.turnaround.title'),
-      description: t('features.turnaround.desc'),
-    },
-    {
-      icon: CurrencyEuroIcon,
-      title: t('features.pricing.title'),
-      description: t('features.pricing.desc'),
-    },
-    {
-      icon: DocumentMagnifyingGlassIcon,
-      title: t('features.reports.title'),
-      description: t('features.reports.desc'),
-    },
-  ];
-  
   return (
     <Layout>
-      {/* Hero Section */}
+      {/* Hero Section - SEO Optimized */}
       <section className="relative bg-gradient-to-br from-primary-50 to-secondary-50 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-secondary-500/5"></div>
         <div className="container-custom py-20 lg:py-32 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
+              {/* SEO-optimized H1 with Dutch and English keywords */}
               <h1 className="text-4xl lg:text-6xl font-heading font-bold text-neutral-900 mb-6 leading-tight">
-                <span className="text-gradient">{t('hero.title')}</span>
+                <span className="text-gradient">Pokémon Kaarten Grading Nederland</span>
                 <br />
                 <span className="text-2xl lg:text-3xl font-medium text-neutral-700">
-                  {t('hero.subtitle')}
+                  Professional Pokemon Card Grading Netherlands
                 </span>
               </h1>
+              
+              {/* SEO-optimized description with key terms */}
               <p className="text-lg lg:text-xl text-neutral-600 mb-8 leading-relaxed">
-                {t('hero.description')} <strong>{t('hero.psa_alternative')}</strong>
+                Nederland's vertrouwde Pokémon kaarten grading service. Laat je Pokémon kaarten authentificeren en keuren door gecertificeerde experts met geavanceerde technologie. 
+                <strong> PSA alternative with fast turnaround and competitive prices.</strong>
               </p>
               
+              {/* Keyword-rich benefits list */}
               <div className="mb-8 text-left">
                 <ul className="space-y-2 text-neutral-600">
                   <li className="flex items-center">
                     <StarIcon className="h-5 w-5 text-primary-500 mr-2" />
-                    <span>{t('hero.cost_from')}</span>
+                    <span><strong>Pokémon kaarten grading kosten</strong> vanaf €15 per kaart</span>
                   </li>
                   <li className="flex items-center">
                     <ClockIcon className="h-5 w-5 text-primary-500 mr-2" />
-                    <span>{t('hero.fast_service')}</span>
+                    <span><strong>Snelle grading service</strong> - 5 tot 20 werkdagen</span>
                   </li>
                   <li className="flex items-center">
                     <ShieldCheckIcon className="h-5 w-5 text-primary-500 mr-2" />
-                    <span>{t('hero.professional_auth')}</span>
+                    <span><strong>Professionele authenticatie</strong> voor alle TCG kaarten</span>
                   </li>
                 </ul>
               </div>
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href="/submit">
                   <Button size="lg" className="w-full sm:w-auto">
-                    {t('hero.submit_cards')}
+                    Pokémon Kaarten Insturen | Submit Your Cards
                   </Button>
                 </Link>
                 <Link href="/services">
@@ -149,7 +155,7 @@ export default function Home() {
                     size="lg"
                     className="w-full sm:w-auto"
                   >
-                    {t('hero.view_pricing')}
+                    Grading Prijzen | View Pricing
                   </Button>
                 </Link>
               </div>
@@ -167,14 +173,14 @@ export default function Home() {
                 </div>
                 <div className="mt-4 text-center">
                   <p className="text-lg font-semibold text-neutral-900 mb-1">
-                    {t('common.professional_grade')}
+                    Professionele Grade | Professional Grade
                   </p>
                   <p className="text-sm text-neutral-600 mb-3">
                     Genesect Ex - Black Bolt White Flare
                   </p>
                   <div className="inline-flex items-center bg-success text-white px-3 py-1 rounded-full text-sm font-medium">
                     <StarIcon className="h-4 w-4 mr-1" />
-                    {t('common.grade')}: 9.5
+                    Grade: 9.5
                   </div>
                 </div>
               </div>
@@ -183,15 +189,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features Section - Local SEO Keywords */}
       <section className="py-20 bg-white">
         <div className="container-custom">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
-              {t('features.title')}
+              Waarom Kiezen voor PokeGrade Nederland? | Why Choose PokeGrade Netherlands?
             </h2>
             <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
-              {t('features.description')}
+              Wij combineren geavanceerde technologie met menselijke expertise voor de meest nauwkeurige en betrouwbare 
+              <strong> Pokémon kaarten grading service in Amsterdam, Rotterdam, Utrecht</strong> en heel Nederland.
+              We deliver the most accurate and trusted <strong>Pokemon card grading service in the Netherlands</strong>.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -212,15 +220,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Overview */}
+      {/* Services Overview - Cost-focused SEO */}
       <section className="py-20 bg-neutral-50">
         <div className="container-custom">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
-              {t('services.title')}
+              Pokémon Kaarten Grading Kosten & Service Levels
             </h2>
             <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
-              {t('services.description')} <strong>{t('services.transparent_pricing')}</strong>
+              Van budget-vriendelijke tot premium express service, wij hebben opties voor elke verzamelaar en tijdslijn.
+              <strong> Pokemon card grading cost Netherlands</strong> - transparent pricing from €15 per card.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -236,7 +245,7 @@ export default function Home() {
                 {tier.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <span className="bg-primary-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                    {t('services.most_popular')}
+                      Populairste Keuze | Most Popular
                     </span>
                   </div>
                 )}
@@ -248,7 +257,7 @@ export default function Home() {
                     <span className="text-4xl font-bold text-primary-500">
                       {tier.price}
                     </span>
-                    <span className="text-neutral-600 ml-1">{t('services.per_card')}</span>
+                    <span className="text-neutral-600 ml-1">per kaart | per card</span>
                   </div>
                   <p className="text-neutral-600 mt-2">{tier.turnaround}</p>
                 </CardHeader>
@@ -276,7 +285,7 @@ export default function Home() {
                     ))}
                   </ul>
                   <p className="text-xs text-neutral-500 mt-4">
-                    Max card value: {tier.maxValue}
+                    Max kaart waarde | Max card value: {tier.maxValue}
                   </p>
                 </CardContent>
               </Card>
@@ -284,21 +293,22 @@ export default function Home() {
           </div>
           <div className="text-center mt-12">
             <Link href="/services">
-              <Button size="lg">{t('services.view_detailed')}</Button>
+              <Button size="lg">Bekijk Gedetailleerde Prijzen | View Detailed Pricing</Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials - Local SEO */}
       <section className="py-20 bg-white">
         <div className="container-custom">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
-              {t('testimonials.title')}
+              Vertrouwd door Verzamelaars in Heel Nederland
             </h2>
             <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
-              {t('testimonials.description')}
+              Sluit je aan bij duizenden tevreden klanten in <strong>Amsterdam, Rotterdam, Utrecht</strong> en heel Nederland die 
+              PokeGrade vertrouwen met hun meest waardevolle Pokémon kaarten.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -335,10 +345,12 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-r from-primary-500 to-secondary-500">
         <div className="container-custom text-center">
           <h2 className="text-3xl lg:text-4xl font-heading font-bold text-white mb-6">
-            {t('cta.title')}
+            Klaar om je Pokémon Collectie te Laten Graden?
           </h2>
-          <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-            {t('cta.description')}
+          <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto">
+            Sluit je aan bij duizenden verzamelaars die PokeGrade Nederland vertrouwen voor professionele, 
+            nauwkeurige en betrouwbare <strong>Pokémon kaarten grading services</strong>. 
+            Join collectors who trust us for <strong>professional Pokemon card grading in Netherlands</strong>.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/submit">
@@ -347,16 +359,16 @@ export default function Home() {
                 size="lg"
                 className="w-full sm:w-auto bg-white text-primary-500 border-white hover:bg-neutral-50"
               >
-              {t('cta.submit_now')}
+                Stuur Kaarten Nu In | Submit Cards Now
               </Button>
-              </Link>
-              <Link href="/track">
+            </Link>
+            <Link href="/track">
               <Button
-                 variant="ghost"
-                 size="lg"
-                 className="w-full sm:w-auto text-white border border-white/30 hover:bg-white/10"
+                variant="ghost"
+                size="lg"
+                className="w-full sm:w-auto text-white border border-white/30 hover:bg-white/10"
               >
-                 {t('cta.track_order')}
+                Volg je Bestelling | Track Your Order
               </Button>
             </Link>
           </div>

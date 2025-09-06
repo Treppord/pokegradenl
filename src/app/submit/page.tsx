@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Layout } from '@/components/layout/Layout';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/Button';
 import { Input, Select, Textarea } from '@/components/ui/Input';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
@@ -91,6 +92,7 @@ const steps = [
 ];
 
 export default function SubmitPage() {
+  const { t } = useLanguage();
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedTier, setSelectedTier] = useState('standard');
@@ -237,10 +239,10 @@ export default function SubmitPage() {
         <div className="container-custom">
           <div className="text-center">
             <h1 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
-              Submit Your Cards for Grading
+              {t('submit.hero_title')}
             </h1>
             <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-              Follow our simple 4-step process to submit your Pokémon cards for professional grading.
+              {t('submit.hero_desc')}
             </p>
           </div>
         </div>

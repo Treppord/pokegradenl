@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "@/styles/globals.css";
-import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,19 +16,20 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: {
     template: "%s | PokeGrade Nederland",
-    default: "PokeGrade Nederland - Pokémon Kaarten Grading & Authentication | Professional Pokemon Card Grading Netherlands",
+    default:
+      "PokeGrade Nederland - Pokémon Kaarten Grading & Authentication | Professional Pokemon Card Grading Netherlands",
   },
   description:
     "Professional Pokémon card grading service in Netherlands. Expert authentication & grading voor alle Pokémon kaarten. PSA alternative with fast turnaround, competitive prices. Pokémon kaarten laten keuren door gecertificeerde experts.",
   keywords: [
     // Dutch keywords
     "Pokémon kaarten grading Nederland",
-    "Pokémon kaarten laten keuren", 
+    "Pokémon kaarten laten keuren",
     "Pokemon kaarten authenticatie",
     "TCG grading Nederland",
     "Pokémon kaarten grading kosten",
     "Pokémon kaarten grading Amsterdam",
-    "Pokémon kaarten grading Rotterdam", 
+    "Pokémon kaarten grading Rotterdam",
     "Pokémon kaarten grading Utrecht",
     // English keywords
     "Pokemon card grading Netherlands",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     "TCG grading service",
     "Pokemon collection Netherlands",
     "card condition grading",
-    "Pokemon card value assessment"
+    "Pokemon card value assessment",
   ],
   authors: [{ name: "PokeGrade Nederland" }],
   creator: "PokeGrade Nederland",
@@ -57,12 +57,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
     languages: {
-      'nl-NL': '/nl',
-      'en-NL': '/en',
-    }
+      "nl-NL": "/nl",
+      "en-NL": "/en",
+    },
   },
   openGraph: {
-    title: "PokeGrade Nederland - Pokémon Kaarten Grading & Pokemon Card Authentication",
+    title:
+      "PokeGrade Nederland - Pokémon Kaarten Grading & Pokemon Card Authentication",
     description:
       "Netherlands' trusted Pokémon card grading service. Professional authentication and grading for all Pokemon cards with fast turnaround and competitive pricing.",
     url: "https://pokegrade.nl",
@@ -86,7 +87,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PokeGrade Nederland - Pokémon Kaarten Grading & Pokemon Card Authentication",
+    title:
+      "PokeGrade Nederland - Pokémon Kaarten Grading & Pokemon Card Authentication",
     description:
       "Netherlands' trusted Pokémon card grading service. Professional authentication and grading with fast turnaround.",
     images: ["/twitter-image.png"],
@@ -104,9 +106,9 @@ export const metadata: Metadata = {
   },
   other: {
     // Local Business Schema will be added via JSON-LD script tag
-    'geo.region': 'NL',
-    'geo.placename': 'Netherlands',
-  }
+    "geo.region": "NL",
+    "geo.placename": "Netherlands",
+  },
 };
 
 export default function RootLayout({
@@ -124,62 +126,63 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "name": "PokeGrade Nederland",
-              "description": "Professional Pokémon card grading and authentication service in the Netherlands",
-              "url": "https://pokegrade.nl",
-              "telephone": "+31-20-123-4567",
-              "email": "info@pokegrade.nl",
-              "address": {
+              name: "PokeGrade Nederland",
+              description:
+                "Professional Pokémon card grading and authentication service in the Netherlands",
+              url: "https://pokegrade.nl",
+              telephone: "+31-20-123-4567",
+              email: "contact@pokegrade.nl",
+              address: {
                 "@type": "PostalAddress",
-                "streetAddress": "Hoofdstraat 123",
-                "addressLocality": "Amsterdam", 
-                "postalCode": "1012 AB",
-                "addressCountry": "NL"
+                streetAddress: "Hoofdstraat 123",
+                addressLocality: "Amsterdam",
+                postalCode: "1012 AB",
+                addressCountry: "NL",
               },
-              "geo": {
+              geo: {
                 "@type": "GeoCoordinates",
-                "latitude": "52.3676",
-                "longitude": "4.9041"
+                latitude: "52.3676",
+                longitude: "4.9041",
               },
-              "areaServed": [
+              areaServed: [
                 {
                   "@type": "City",
-                  "name": "Amsterdam"
-                },
-                {
-                  "@type": "City", 
-                  "name": "Rotterdam"
+                  name: "Amsterdam",
                 },
                 {
                   "@type": "City",
-                  "name": "Utrecht"
+                  name: "Rotterdam",
                 },
                 {
                   "@type": "City",
-                  "name": "Den Haag"
+                  name: "Utrecht",
+                },
+                {
+                  "@type": "City",
+                  name: "Den Haag",
                 },
                 {
                   "@type": "Country",
-                  "name": "Netherlands"
-                }
+                  name: "Netherlands",
+                },
               ],
-              "serviceType": [
+              serviceType: [
                 "Pokémon card grading",
-                "TCG authentication", 
+                "TCG authentication",
                 "Card condition assessment",
-                "Pokemon card certification"
+                "Pokemon card certification",
               ],
-              "priceRange": "€15-€45",
-              "openingHours": "Mo-Fr 09:00-17:00",
-              "sameAs": [
+              priceRange: "€15-€45",
+              openingHours: "Mo-Fr 09:00-17:00",
+              sameAs: [
                 "https://facebook.com/pokegradenedarland",
                 "https://twitter.com/pokegradnl",
-                "https://instagram.com/pokegradenedarland"
-              ]
-            })
+                "https://instagram.com/pokegradenedarland",
+              ],
+            }),
           }}
         />
-        
+
         {/* FAQ Schema */}
         <script
           type="application/ld+json"
@@ -187,46 +190,46 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "FAQPage",
-              "mainEntity": [
+              mainEntity: [
                 {
                   "@type": "Question",
-                  "name": "Hoeveel kost Pokémon kaarten grading in Nederland?",
-                  "acceptedAnswer": {
+                  name: "Hoeveel kost Pokémon kaarten grading in Nederland?",
+                  acceptedAnswer: {
                     "@type": "Answer",
-                    "text": "PokeGrade Nederland biedt grading vanaf €15 per kaart voor de Value service, €25 voor Standard, en €45 voor Premium express service."
-                  }
-                },
-                {
-                  "@type": "Question", 
-                  "name": "Hoe lang duurt PSA grading in Nederland?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Onze grading services hebben verschillende doorlooptijden: Value (20 werkdagen), Standard (10 werkdagen), Premium (5 werkdagen)."
-                  }
+                    text: "PokeGrade Nederland biedt grading vanaf €15 per kaart voor de Value service, €25 voor Standard, en €45 voor Premium express service.",
+                  },
                 },
                 {
                   "@type": "Question",
-                  "name": "Where to grade Pokemon cards in Netherlands?", 
-                  "acceptedAnswer": {
+                  name: "Hoe lang duurt PSA grading in Nederland?",
+                  acceptedAnswer: {
                     "@type": "Answer",
-                    "text": "PokeGrade Nederland is the leading Pokemon card grading service in the Netherlands, offering professional authentication and grading with multiple service tiers."
-                  }
-                }
-              ]
-            })
+                    text: "Onze grading services hebben verschillende doorlooptijden: Value (20 werkdagen), Standard (10 werkdagen), Premium (5 werkdagen).",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Where to grade Pokemon cards in Netherlands?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "PokeGrade Nederland is the leading Pokemon card grading service in the Netherlands, offering professional authentication and grading with multiple service tiers.",
+                  },
+                },
+              ],
+            }),
           }}
         />
 
         {/* Hreflang tags for multilingual */}
         <link rel="alternate" hrefLang="nl-NL" href="https://pokegrade.nl/nl" />
         <link rel="alternate" hrefLang="en-NL" href="https://pokegrade.nl/en" />
-        <link rel="alternate" hrefLang="x-default" href="https://pokegrade.nl" />
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href="https://pokegrade.nl"
+        />
       </head>
-      <body className={inter.className}>
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
