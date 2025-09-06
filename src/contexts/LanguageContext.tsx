@@ -568,6 +568,10 @@ const translations = {
   'lookup.no_results': {
     nl: 'Geen resultaten',
     en: 'No results'
+  },
+  'lookup.invalid_qr': {
+    nl: 'Ongeldige QR code',
+    en: 'Invalid QR code'
   }
 };
 

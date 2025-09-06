@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Layout } from '@/components/layout/Layout';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { QRScanner } from '@/components/ui/QRScanner';
 import { pokegradeService, PokegradeCardData } from '@/services/pokegradeService';
 import {
   MagnifyingGlassIcon,
@@ -21,11 +23,68 @@ import {
 
 export default function LookupClient() {
   const { t } = useLanguage();
+  const searchParams = useSearchParams();
   const [pgId, setPgId] = useState('');
   const [loading, setLoading] = useState(false);
   const [cardData, setCardData] = useState<PokegradeCardData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [searchPerformed, setSearchPerformed] = useState(false);
+  const [showQRScanner, setShowQRScanner] = useState(false);
+
+  // Handle URL parameters (from QR code redirects)
+  useEffect(() => {
+    const urlPgId = searchParams.get('id');
+    const urlError = searchParams.get('error');
+    
+    if (urlError === 'invalid_format') {
+      setError(t('lookup.invalid_id'));
+      setSearchPerformed(true);
+      return;
+    }
+    
+    if (urlPgId && !searchPerformed) {
+      setPgId(urlPgId.toUpperCase());
+      // Auto-search when coming from QR code
+      handleAutoSearch(urlPgId.toUpperCase());
+    }
+  }, [searchParams, searchPerformed, t]);
+
+  const handleAutoSearch = async (searchPgId: string) => {
+    if (!searchPgId.trim()) return;
+    
+    setLoading(true);
+    setError(null);
+    setCardData(null);
+    setSearchPerformed(true);
+
+    try {
+      const result = await pokegradeService.lookupCard(searchPgId.trim().toUpperCase());
+      
+      console.log('Auto-search result:', result);
+      
+      if (result.success && result.card) {
+        setCardData(result.card);
+        setError(null);
+      } else {
+        switch (result.code) {
+          case 'INVALID_FORMAT':
+            setError(t('lookup.invalid_id'));
+            break;
+          case 'CARD_NOT_FOUND':
+            setError(t('lookup.not_found'));
+            break;
+          default:
+            setError(t('lookup.error'));
+        }
+        setCardData(null);
+      }
+    } catch (err) {
+      setError(t('lookup.error'));
+      setCardData(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
 
@@ -81,6 +140,38 @@ export default function LookupClient() {
     setCardData(null);
     setError(null);
     setSearchPerformed(false);
+  };
+
+  const handleQRScan = async (qrData: string) => {
+    try {
+      const result = await pokegradeService.handleQRScan(qrData);
+      
+      if (result.success && result.card) {
+        setPgId(result.card.pokegrade_id);
+        setCardData(result.card);
+        setError(null);
+        setSearchPerformed(true);
+      } else {
+        switch (result.code) {
+          case 'INVALID_QR':
+            setError(t('lookup.invalid_qr'));
+            break;
+          case 'CARD_NOT_FOUND':
+            setError(t('lookup.not_found'));
+            break;
+          default:
+            setError(t('lookup.error'));
+        }
+        setCardData(null);
+        setSearchPerformed(true);
+      }
+    } catch (err) {
+      setError(t('lookup.error'));
+      setCardData(null);
+      setSearchPerformed(true);
+    } finally {
+      setShowQRScanner(false);
+    }
   };
 
   const formatDate = (dateString: string) => {
@@ -159,6 +250,17 @@ export default function LookupClient() {
                           {t('lookup.search_button')}
                         </>
                       )}
+                    </Button>
+
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={() => setShowQRScanner(true)}
+                      disabled={loading}
+                      className="flex-1 sm:flex-none"
+                    >
+                      <QrCodeIcon className="h-4 w-4 mr-2" />
+                      {t('lookup.scan_qr')}
                     </Button>
                     
                     {(searchPerformed || error || cardData) && (
@@ -460,6 +562,13 @@ export default function LookupClient() {
           </div>
         </div>
       </section>
+
+      {/* QR Scanner Modal */}
+      <QRScanner
+        isOpen={showQRScanner}
+        onScan={handleQRScan}
+        onClose={() => setShowQRScanner(false)}
+      />
     </Layout>
   );
 }
