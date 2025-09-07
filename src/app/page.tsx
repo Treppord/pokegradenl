@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/Button";
@@ -77,31 +77,31 @@ const testimonials = [
 
 export default function Home() {
   const { t } = useLanguage();
-  
+
   // Dynamic features with translations
   const features = [
     {
       icon: ShieldCheckIcon,
-      title: t('features.auth.title'),
-      description: t('features.auth.desc'),
+      title: t("features.auth.title"),
+      description: t("features.auth.desc"),
     },
     {
       icon: ClockIcon,
-      title: t('features.turnaround.title'),
-      description: t('features.turnaround.desc'),
+      title: t("features.turnaround.title"),
+      description: t("features.turnaround.desc"),
     },
     {
       icon: CurrencyEuroIcon,
-      title: t('features.pricing.title'),
-      description: t('features.pricing.desc'),
+      title: t("features.pricing.title"),
+      description: t("features.pricing.desc"),
     },
     {
       icon: DocumentMagnifyingGlassIcon,
-      title: t('features.reports.title'),
-      description: t('features.reports.desc'),
+      title: t("features.reports.title"),
+      description: t("features.reports.desc"),
     },
   ];
-  
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -111,36 +111,37 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
               <h1 className="text-4xl lg:text-6xl font-heading font-bold text-neutral-900 mb-6 leading-tight">
-                <span className="text-gradient">{t('hero.title')}</span>
+                <span className="text-gradient">{t("hero.title")}</span>
                 <br />
                 <span className="text-2xl lg:text-3xl font-medium text-neutral-700">
-                  {t('hero.subtitle')}
+                  {t("hero.subtitle")}
                 </span>
               </h1>
               <p className="text-lg lg:text-xl text-neutral-600 mb-8 leading-relaxed">
-                {t('hero.description')} <strong>{t('hero.psa_alternative')}</strong>
+                {t("hero.description")}{" "}
+                <strong>{t("hero.psa_alternative")}</strong>
               </p>
-              
+
               <div className="mb-8 text-left">
                 <ul className="space-y-2 text-neutral-600">
                   <li className="flex items-center">
                     <StarIcon className="h-5 w-5 text-primary-500 mr-2" />
-                    <span>{t('hero.cost_from')}</span>
+                    <span>{t("hero.cost_from")}</span>
                   </li>
                   <li className="flex items-center">
                     <ClockIcon className="h-5 w-5 text-primary-500 mr-2" />
-                    <span>{t('hero.fast_service')}</span>
+                    <span>{t("hero.fast_service")}</span>
                   </li>
                   <li className="flex items-center">
                     <ShieldCheckIcon className="h-5 w-5 text-primary-500 mr-2" />
-                    <span>{t('hero.professional_auth')}</span>
+                    <span>{t("hero.professional_auth")}</span>
                   </li>
                 </ul>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href="/submit">
                   <Button size="lg" className="w-full sm:w-auto">
-                    {t('hero.submit_cards')}
+                    {t("hero.submit_cards")}
                   </Button>
                 </Link>
                 <Link href="/services">
@@ -149,7 +150,7 @@ export default function Home() {
                     size="lg"
                     className="w-full sm:w-auto"
                   >
-                    {t('hero.view_pricing')}
+                    {t("hero.view_pricing")}
                   </Button>
                 </Link>
               </div>
@@ -158,7 +159,7 @@ export default function Home() {
               <div className="bg-white rounded-2xl shadow-2xl p-6 transform rotate-3 hover:rotate-1 transition-transform duration-300">
                 <div className="bg-neutral-100 rounded-lg overflow-hidden">
                   <img
-                    src="/assets/img/example-1.png"
+                    src="/assets/img/rashi.png"
                     alt="Genesect Ex Pokémon kaart professioneel gegraded door PokeGrade Nederland - Pokemon card grading example"
                     className="w-full h-96 object-contain"
                     width={768}
@@ -167,14 +168,14 @@ export default function Home() {
                 </div>
                 <div className="mt-4 text-center">
                   <p className="text-lg font-semibold text-neutral-900 mb-1">
-                    {t('common.professional_grade')}
+                    {t("common.professional_grade")}
                   </p>
                   <p className="text-sm text-neutral-600 mb-3">
-                    Genesect Ex - Black Bolt White Flare
+                    Reshiram EX - White Flare
                   </p>
                   <div className="inline-flex items-center bg-success text-white px-3 py-1 rounded-full text-sm font-medium">
                     <StarIcon className="h-4 w-4 mr-1" />
-                    {t('common.grade')}: 9.5
+                    {t("common.grade")}: 10
                   </div>
                 </div>
               </div>
@@ -188,10 +189,10 @@ export default function Home() {
         <div className="container-custom">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
-              {t('features.title')}
+              {t("features.title")}
             </h2>
             <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
-              {t('features.description')}
+              {t("features.description")}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -217,10 +218,11 @@ export default function Home() {
         <div className="container-custom">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
-              {t('services.title')}
+              {t("services.title")}
             </h2>
             <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
-              {t('services.description')} <strong>{t('services.transparent_pricing')}</strong>
+              {t("services.description")}{" "}
+              <strong>{t("services.transparent_pricing")}</strong>
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -236,7 +238,7 @@ export default function Home() {
                 {tier.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <span className="bg-primary-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                    {t('services.most_popular')}
+                      {t("services.most_popular")}
                     </span>
                   </div>
                 )}
@@ -248,7 +250,9 @@ export default function Home() {
                     <span className="text-4xl font-bold text-primary-500">
                       {tier.price}
                     </span>
-                    <span className="text-neutral-600 ml-1">{t('services.per_card')}</span>
+                    <span className="text-neutral-600 ml-1">
+                      {t("services.per_card")}
+                    </span>
                   </div>
                   <p className="text-neutral-600 mt-2">{tier.turnaround}</p>
                 </CardHeader>
@@ -284,7 +288,7 @@ export default function Home() {
           </div>
           <div className="text-center mt-12">
             <Link href="/services">
-              <Button size="lg">{t('services.view_detailed')}</Button>
+              <Button size="lg">{t("services.view_detailed")}</Button>
             </Link>
           </div>
         </div>
@@ -295,10 +299,10 @@ export default function Home() {
         <div className="container-custom">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
-              {t('testimonials.title')}
+              {t("testimonials.title")}
             </h2>
             <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
-              {t('testimonials.description')}
+              {t("testimonials.description")}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -335,10 +339,10 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-r from-primary-500 to-secondary-500">
         <div className="container-custom text-center">
           <h2 className="text-3xl lg:text-4xl font-heading font-bold text-white mb-6">
-            {t('cta.title')}
+            {t("cta.title")}
           </h2>
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-            {t('cta.description')}
+            {t("cta.description")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/submit">
@@ -347,16 +351,16 @@ export default function Home() {
                 size="lg"
                 className="w-full sm:w-auto bg-white text-primary-500 border-white hover:bg-neutral-50"
               >
-              {t('cta.submit_now')}
+                {t("cta.submit_now")}
               </Button>
-              </Link>
-              <Link href="/track">
+            </Link>
+            <Link href="/track">
               <Button
-                 variant="ghost"
-                 size="lg"
-                 className="w-full sm:w-auto text-white border border-white/30 hover:bg-white/10"
+                variant="ghost"
+                size="lg"
+                className="w-full sm:w-auto text-white border border-white/30 hover:bg-white/10"
               >
-                 {t('cta.track_order')}
+                {t("cta.track_order")}
               </Button>
             </Link>
           </div>

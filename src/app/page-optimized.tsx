@@ -45,9 +45,9 @@ const serviceTiers = [
     turnaround: "20 werkdagen | 20 business days",
     maxValue: "€500",
     features: [
-      "Standaard grading | Standard grading", 
-      "Basis bescherming | Basic protection", 
-      "Online tracking"
+      "Standaard grading | Standard grading",
+      "Basis bescherming | Basic protection",
+      "Online tracking",
     ],
     popular: false,
   },
@@ -88,14 +88,14 @@ const testimonials = [
     text: "Uitstekende service! Mijn vintage Charizard werd met ongelooflijke zorg behandeld. Het grading rapport was grondig en professioneel.",
   },
   {
-    name: "Emma Janssen", 
+    name: "Emma Janssen",
     location: "Rotterdam",
     rating: 5,
     text: "Snelle doorlooptijd en concurrerende prijzen. PokeGrade is mijn go-to voor alle kaart authenticatie behoeften geworden.",
   },
   {
     name: "Thomas de Wit",
-    location: "Utrecht", 
+    location: "Utrecht",
     rating: 5,
     text: "Het online tracking systeem is geweldig. Ik kon mijn kaarten elke stap van de weg volgen. Zeer aan te bevelen!",
   },
@@ -112,37 +112,53 @@ export default function Home() {
             <div className="text-center lg:text-left">
               {/* SEO-optimized H1 with Dutch and English keywords */}
               <h1 className="text-4xl lg:text-6xl font-heading font-bold text-neutral-900 mb-6 leading-tight">
-                <span className="text-gradient">Pokémon Kaarten Grading Nederland</span>
+                <span className="text-gradient">
+                  Pokémon Kaarten Grading Nederland
+                </span>
                 <br />
                 <span className="text-2xl lg:text-3xl font-medium text-neutral-700">
                   Professional Pokemon Card Grading Netherlands
                 </span>
               </h1>
-              
+
               {/* SEO-optimized description with key terms */}
               <p className="text-lg lg:text-xl text-neutral-600 mb-8 leading-relaxed">
-                Nederland's vertrouwde Pokémon kaarten grading service. Laat je Pokémon kaarten authentificeren en keuren door gecertificeerde experts met geavanceerde technologie. 
-                <strong> PSA alternative with fast turnaround and competitive prices.</strong>
+                Nederland's vertrouwde Pokémon kaarten grading service. Laat je
+                Pokémon kaarten authentificeren en keuren door gecertificeerde
+                experts met geavanceerde technologie.
+                <strong>
+                  {" "}
+                  PSA alternative with fast turnaround and competitive prices.
+                </strong>
               </p>
-              
+
               {/* Keyword-rich benefits list */}
               <div className="mb-8 text-left">
                 <ul className="space-y-2 text-neutral-600">
                   <li className="flex items-center">
                     <StarIcon className="h-5 w-5 text-primary-500 mr-2" />
-                    <span><strong>Pokémon kaarten grading kosten</strong> vanaf €15 per kaart</span>
+                    <span>
+                      <strong>Pokémon kaarten grading kosten</strong> vanaf €15
+                      per kaart
+                    </span>
                   </li>
                   <li className="flex items-center">
                     <ClockIcon className="h-5 w-5 text-primary-500 mr-2" />
-                    <span><strong>Snelle grading service</strong> - 5 tot 20 werkdagen</span>
+                    <span>
+                      <strong>Snelle grading service</strong> - 5 tot 20
+                      werkdagen
+                    </span>
                   </li>
                   <li className="flex items-center">
                     <ShieldCheckIcon className="h-5 w-5 text-primary-500 mr-2" />
-                    <span><strong>Professionele authenticatie</strong> voor alle TCG kaarten</span>
+                    <span>
+                      <strong>Professionele authenticatie</strong> voor alle TCG
+                      kaarten
+                    </span>
                   </li>
                 </ul>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href="/submit">
                   <Button size="lg" className="w-full sm:w-auto">
@@ -164,7 +180,7 @@ export default function Home() {
               <div className="bg-white rounded-2xl shadow-2xl p-6 transform rotate-3 hover:rotate-1 transition-transform duration-300">
                 <div className="bg-neutral-100 rounded-lg overflow-hidden">
                   <img
-                    src="/assets/img/example-1.png"
+                    src="/assets/img/rashi.png"
                     alt="Genesect Ex Pokémon kaart professioneel gegraded door PokeGrade Nederland - Pokemon card grading example"
                     className="w-full h-96 object-contain"
                     width={768}
@@ -176,11 +192,11 @@ export default function Home() {
                     Professionele Grade | Professional Grade
                   </p>
                   <p className="text-sm text-neutral-600 mb-3">
-                    Genesect Ex - Black Bolt White Flare
+                    Reshiram EX - White Flare
                   </p>
                   <div className="inline-flex items-center bg-success text-white px-3 py-1 rounded-full text-sm font-medium">
                     <StarIcon className="h-4 w-4 mr-1" />
-                    Grade: 9.5
+                    Grade: 10
                   </div>
                 </div>
               </div>
@@ -194,12 +210,18 @@ export default function Home() {
         <div className="container-custom">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-heading font-bold text-neutral-900 mb-4">
-              Waarom Kiezen voor PokeGrade Nederland? | Why Choose PokeGrade Netherlands?
+              Waarom Kiezen voor PokeGrade Nederland? | Why Choose PokeGrade
+              Netherlands?
             </h2>
             <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
-              Wij combineren geavanceerde technologie met menselijke expertise voor de meest nauwkeurige en betrouwbare 
-              <strong> Pokémon kaarten grading service in Amsterdam, Rotterdam, Utrecht</strong> en heel Nederland.
-              We deliver the most accurate and trusted <strong>Pokemon card grading service in the Netherlands</strong>.
+              Wij combineren geavanceerde technologie met menselijke expertise
+              voor de meest nauwkeurige en betrouwbare
+              <strong>
+                {" "}
+                Pokémon kaarten grading service in Amsterdam, Rotterdam, Utrecht
+              </strong>{" "}
+              en heel Nederland. We deliver the most accurate and trusted{" "}
+              <strong>Pokemon card grading service in the Netherlands</strong>.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -228,8 +250,10 @@ export default function Home() {
               Pokémon Kaarten Grading Kosten & Service Levels
             </h2>
             <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
-              Van budget-vriendelijke tot premium express service, wij hebben opties voor elke verzamelaar en tijdslijn.
-              <strong> Pokemon card grading cost Netherlands</strong> - transparent pricing from €15 per card.
+              Van budget-vriendelijke tot premium express service, wij hebben
+              opties voor elke verzamelaar en tijdslijn.
+              <strong> Pokemon card grading cost Netherlands</strong> -
+              transparent pricing from €15 per card.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -257,7 +281,9 @@ export default function Home() {
                     <span className="text-4xl font-bold text-primary-500">
                       {tier.price}
                     </span>
-                    <span className="text-neutral-600 ml-1">per kaart | per card</span>
+                    <span className="text-neutral-600 ml-1">
+                      per kaart | per card
+                    </span>
                   </div>
                   <p className="text-neutral-600 mt-2">{tier.turnaround}</p>
                 </CardHeader>
@@ -293,7 +319,9 @@ export default function Home() {
           </div>
           <div className="text-center mt-12">
             <Link href="/services">
-              <Button size="lg">Bekijk Gedetailleerde Prijzen | View Detailed Pricing</Button>
+              <Button size="lg">
+                Bekijk Gedetailleerde Prijzen | View Detailed Pricing
+              </Button>
             </Link>
           </div>
         </div>
@@ -307,8 +335,10 @@ export default function Home() {
               Vertrouwd door Verzamelaars in Heel Nederland
             </h2>
             <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
-              Sluit je aan bij duizenden tevreden klanten in <strong>Amsterdam, Rotterdam, Utrecht</strong> en heel Nederland die 
-              PokeGrade vertrouwen met hun meest waardevolle Pokémon kaarten.
+              Sluit je aan bij duizenden tevreden klanten in{" "}
+              <strong>Amsterdam, Rotterdam, Utrecht</strong> en heel Nederland
+              die PokeGrade vertrouwen met hun meest waardevolle Pokémon
+              kaarten.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -348,9 +378,11 @@ export default function Home() {
             Klaar om je Pokémon Collectie te Laten Graden?
           </h2>
           <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto">
-            Sluit je aan bij duizenden verzamelaars die PokeGrade Nederland vertrouwen voor professionele, 
-            nauwkeurige en betrouwbare <strong>Pokémon kaarten grading services</strong>. 
-            Join collectors who trust us for <strong>professional Pokemon card grading in Netherlands</strong>.
+            Sluit je aan bij duizenden verzamelaars die PokeGrade Nederland
+            vertrouwen voor professionele, nauwkeurige en betrouwbare{" "}
+            <strong>Pokémon kaarten grading services</strong>. Join collectors
+            who trust us for{" "}
+            <strong>professional Pokemon card grading in Netherlands</strong>.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/submit">
