@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import MollieService from '@/services/mollieService';
+import { sendEmail } from '@/lib/gmail/client';
+import { createUserConfirmationEmail, createAdminNotificationEmail } from '@/lib/email/templates';
 
 export async function POST(request: NextRequest) {
   try {
@@ -35,8 +37,36 @@ export async function POST(request: NextRequest) {
           const submissionData = JSON.parse(metadata.submissionData);
           console.log('Processing submission:', submissionData);
           
+          try {
+            // Send confirmation email to customer
+            const userEmailTemplate = createUserConfirmationEmail(paymentId, submissionData);
+            await sendEmail({
+              to: submissionData.shippingInfo.pickupAddress.email,
+              subject: userEmailTemplate.subject,
+              html: userEmailTemplate.html,
+              text: userEmailTemplate.text,
+            });
+            console.log('Confirmation email sent to customer:', submissionData.shippingInfo.pickupAddress.email);
+
+            // Send notification email to admin
+            const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER_EMAIL;
+            if (adminEmail) {
+              const adminEmailTemplate = createAdminNotificationEmail(paymentId, submissionData);
+              await sendEmail({
+                to: adminEmail,
+                subject: adminEmailTemplate.subject,
+                html: adminEmailTemplate.html,
+                text: adminEmailTemplate.text,
+              });
+              console.log('Admin notification email sent to:', adminEmail);
+            }
+            
+          } catch (emailError) {
+            console.error('Email sending failed:', emailError);
+            // Don't fail the webhook if email fails - payment is still successful
+          }
+          
           // TODO: Save submission to database
-          // TODO: Send confirmation email
           // TODO: Create user account if needed
         }
       }
