@@ -18,14 +18,19 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  console.log('🔔 WEBHOOK: Mollie webhook endpoint called');
+  const startTime = Date.now();
+  console.log('🔔 WEBHOOK: Mollie webhook endpoint called at', new Date().toISOString());
   
   try {
     // Log headers for debugging
     logWebhookHeaders(request.headers);
     
     const body = await request.text();
-    console.log('📝 WEBHOOK: Raw body received:', body);
+    console.log('📝 WEBHOOK: Raw body received:', {
+      body: body,
+      bodyLength: body.length,
+      contentType: request.headers.get('content-type')
+    });
     
     // Validate webhook signature if webhook secret is configured
     const webhookSecret = process.env.MOLLIE_WEBHOOK_SECRET;
@@ -182,14 +187,21 @@ export async function POST(request: NextRequest) {
       console.log('⏳ WEBHOOK: Payment in pending state:', payment.status);
     }
 
-    console.log('✅ WEBHOOK: Webhook processing completed successfully');
+    const processingTime = Date.now() - startTime;
+    console.log('✅ WEBHOOK: Webhook processing completed successfully', {
+      processingTimeMs: processingTime,
+      timestamp: new Date().toISOString()
+    });
     return NextResponse.json({ success: true });
 
   } catch (error) {
+    const processingTime = Date.now() - startTime;
     console.error('❌ WEBHOOK: Webhook processing error:', error);
     console.error('❌ WEBHOOK: Error details:', {
       message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined
+      stack: error instanceof Error ? error.stack : undefined,
+      processingTimeMs: processingTime,
+      timestamp: new Date().toISOString()
     });
     return NextResponse.json(
       { error: 'Failed to process webhook' },
