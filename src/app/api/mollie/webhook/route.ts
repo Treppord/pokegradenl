@@ -3,6 +3,19 @@ import MollieService from '@/services/mollieService';
 import { sendEmail } from '@/lib/gmail/client';
 import { createUserConfirmationEmail, createAdminNotificationEmail } from '@/lib/email/templates';
 
+// Add GET method for testing webhook accessibility
+export async function GET(request: NextRequest) {
+  console.log('🧪 WEBHOOK: GET request received (testing)');
+  
+  return NextResponse.json({
+    success: true,
+    message: 'Webhook endpoint is accessible!',
+    note: 'This endpoint accepts POST requests from Mollie',
+    timestamp: new Date().toISOString(),
+    url: request.url
+  });
+}
+
 export async function POST(request: NextRequest) {
   console.log('🔔 WEBHOOK: Mollie webhook endpoint called');
   

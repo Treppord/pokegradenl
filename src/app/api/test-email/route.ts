@@ -82,15 +82,31 @@ Environment check: ${JSON.stringify(envCheck, null, 2)}
 
   } catch (error) {
     console.error('❌ TEST-EMAIL: Failed to send test email:', error);
-    console.error('❌ TEST-EMAIL: Error details:', {
+    
+    const errorDetails = {
       message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined
-    });
+      stack: error instanceof Error ? error.stack : undefined,
+      name: error instanceof Error ? error.name : undefined,
+      code: (error as any)?.code || undefined,
+      response: (error as any)?.response || undefined,
+      responseText: (error as any)?.responseText || undefined
+    };
+    
+    console.error('❌ TEST-EMAIL: Detailed error info:', errorDetails);
     
     return NextResponse.json({
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',
-      timestamp: new Date().toISOString()
+      errorDetails,
+      envCheck,
+      timestamp: new Date().toISOString(),
+      troubleshooting: {
+        step1: 'Check if all Gmail environment variables are set correctly',
+        step2: 'Verify Gmail OAuth credentials are valid and not expired', 
+        step3: 'Ensure Gmail API is enabled in Google Cloud Console',
+        step4: 'Check refresh token is still valid',
+        step5: 'Verify GMAIL_USER_EMAIL has permission to send emails'
+      }
     }, { status: 500 });
   }
 }
