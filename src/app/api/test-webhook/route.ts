@@ -49,6 +49,10 @@ export async function GET(request: NextRequest) {
     const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER_EMAIL;
     console.log('🔧 TEST-WEBHOOK: Admin email for testing:', adminEmail);
     
+    if (!adminEmail) {
+      throw new Error('No admin email configured for testing');
+    }
+    
     // Test customer confirmation email
     console.log('👤 TEST-WEBHOOK: Testing customer confirmation email...');
     const userEmailTemplate = createUserConfirmationEmail(mockPaymentId, mockSubmissionData);

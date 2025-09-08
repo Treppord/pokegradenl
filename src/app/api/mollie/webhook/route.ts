@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import MollieService from '@/services/mollieService';
 import { sendEmail } from '@/lib/gmail/client';
 import { createUserConfirmationEmail, createAdminNotificationEmail } from '@/lib/email/templates';
+import { validateMollieWebhook, logWebhookHeaders } from '@/lib/mollie/webhook-validator';
 
 // Add GET method for testing webhook accessibility
 export async function GET(request: NextRequest) {
@@ -20,8 +21,31 @@ export async function POST(request: NextRequest) {
   console.log('🔔 WEBHOOK: Mollie webhook endpoint called');
   
   try {
+    // Log headers for debugging
+    logWebhookHeaders(request.headers);
+    
     const body = await request.text();
     console.log('📝 WEBHOOK: Raw body received:', body);
+    
+    // Validate webhook signature if webhook secret is configured
+    const webhookSecret = process.env.MOLLIE_WEBHOOK_SECRET;
+    const signature = request.headers.get('x-mollie-signature');
+    
+    if (webhookSecret) {
+      console.log('🔐 WEBHOOK: Webhook secret configured, validating signature...');
+      const isValid = validateMollieWebhook(body, signature, webhookSecret);
+      
+      if (!isValid) {
+        console.log('❌ WEBHOOK: Invalid signature, rejecting request');
+        return NextResponse.json(
+          { error: 'Invalid webhook signature' },
+          { status: 401 }
+        );
+      }
+      console.log('✅ WEBHOOK: Signature validation passed');
+    } else {
+      console.log('⚠️ WEBHOOK: No webhook secret configured, skipping signature validation');
+    }
     
     const params = new URLSearchParams(body);
     const paymentId = params.get('id');

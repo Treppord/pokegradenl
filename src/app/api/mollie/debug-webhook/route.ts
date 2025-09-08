@@ -17,6 +17,8 @@ export async function GET(request: NextRequest) {
     mollieConfig: {
       hasMollieApiKey: !!process.env.MOLLIE_API_KEY,
       mollieApiKeyPrefix: process.env.MOLLIE_API_KEY?.substring(0, 8) + '...',
+      hasWebhookSecret: !!process.env.MOLLIE_WEBHOOK_SECRET,
+      webhookSecretPrefix: process.env.MOLLIE_WEBHOOK_SECRET?.substring(0, 8) + '...',
     },
     emailConfig: {
       hasGmailUser: !!process.env.GMAIL_USER_EMAIL,
@@ -37,7 +39,8 @@ export async function GET(request: NextRequest) {
       step2: 'Go to https://my.mollie.com/dashboard/developers/webhooks',
       step3: 'Add webhook endpoint with the URL above',
       step4: 'Select "Payment status changes" as the event',
-      step5: 'Test with a real payment to see if webhook is called'
+      step5: 'Copy the webhook secret from Mollie and add MOLLIE_WEBHOOK_SECRET to your .env',
+      step6: 'Test with a real payment to see if webhook is called'
     },
     timestamp: new Date().toISOString()
   });
