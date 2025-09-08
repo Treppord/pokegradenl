@@ -11,10 +11,10 @@ declare module 'nodemailer' {
     sendMail(mailOptions: MailOptions): Promise<any>
   }
 
-  export function createTransporter(config: any): Transporter
+  export function createTransport(config: any): Transporter
 
   const nodemailer: {
-    createTransporter(config: any): Transporter
+    createTransport(config: any): Transporter
   }
 
   export default nodemailer
