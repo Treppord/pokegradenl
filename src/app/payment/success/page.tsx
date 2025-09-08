@@ -1,119 +1,269 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
-import Link from 'next/link'
+import React, { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Layout } from '@/components/layout/Layout';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { 
+  CheckCircleIcon,
+  ClockIcon,
+  DocumentTextIcon,
+  EnvelopeIcon,
+  TruckIcon
+} from '@heroicons/react/24/outline';
+
+interface PaymentStatus {
+  id: string;
+  status: string;
+  amount: {
+    value: string;
+    currency: string;
+  };
+  description: string;
+  isPaid: boolean;
+  isCanceled: boolean;
+  isExpired: boolean;
+  isFailed: boolean;
+}
 
 export default function PaymentSuccessPage() {
-  const searchParams = useSearchParams()
-  const orderId = searchParams.get('orderId')
-  const [loading, setLoading] = useState(true)
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const paymentId = searchParams.get('paymentId');
+  
+  const [paymentStatus, setPaymentStatus] = useState<PaymentStatus | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [submissionData, setSubmissionData] = useState<any>(null);
 
   useEffect(() => {
-    // Add any post-payment processing here
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 2000)
+    if (!paymentId) {
+      router.push('/submit');
+      return;
+    }
 
-    return () => clearTimeout(timer)
-  }, [])
+    checkPaymentStatus();
+    
+    // Load submission data from localStorage
+    const lastSubmission = localStorage.getItem('lastSubmission');
+    if (lastSubmission) {
+      setSubmissionData(JSON.parse(lastSubmission));
+    }
+  }, [paymentId, router]);
+
+  const checkPaymentStatus = async () => {
+    try {
+      const response = await fetch(`/api/mollie/payment-status?id=${paymentId}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setPaymentStatus(data.payment);
+      }
+    } catch (error) {
+      console.error('Failed to check payment status:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Card className="w-full max-w-md">
-          <CardContent className="flex items-center justify-center py-12">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
-              <p className="text-gray-600">Processing your payment...</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    )
+      <Layout>
+        <div className="container-custom py-16 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
+          <p>Checking payment status...</p>
+        </div>
+      </Layout>
+    );
   }
 
+  if (!paymentStatus) {
+    return (
+      <Layout>
+        <div className="container-custom py-16 text-center">
+          <h1 className="text-2xl font-bold text-red-600 mb-4">Payment Not Found</h1>
+          <p className="text-gray-600 mb-8">We couldn't find your payment. Please contact support if you believe this is an error.</p>
+          <Button onClick={() => router.push('/contact')}>Contact Support</Button>
+        </div>
+      </Layout>
+    );
+  }
+
+  const isSuccess = paymentStatus.isPaid;
+  const isPending = paymentStatus.status === 'open' || paymentStatus.status === 'pending';
+  const isFailed = paymentStatus.isFailed || paymentStatus.isCanceled || paymentStatus.isExpired;
+
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12">
-      <Card className="w-full max-w-2xl">
-        <CardHeader className="text-center">
-          <div className="mx-auto mb-4 w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <CardTitle className="text-2xl text-green-600">
-            🎉 Payment Successful!
-          </CardTitle>
-        </CardHeader>
-        
-        <CardContent className="text-center space-y-6">
-          <div>
-            <p className="text-gray-600 mb-4">
-              Thank you for your purchase! Your payment has been processed successfully.
-            </p>
-            {orderId && (
-              <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                <p className="text-sm text-gray-600 mb-1">Order ID:</p>
-                <p className="font-mono text-sm font-medium">{orderId}</p>
-              </div>
+    <Layout>
+      <div className="container-custom py-12">
+        <div className="max-w-2xl mx-auto">
+          {/* Status Header */}
+          <div className="text-center mb-8">
+            {isSuccess && (
+              <>
+                <CheckCircleIcon className="h-16 w-16 text-success mx-auto mb-4" />
+                <h1 className="text-3xl font-bold text-neutral-900 mb-2">Payment Successful!</h1>
+                <p className="text-lg text-neutral-600">Your card submission has been received and payment confirmed.</p>
+              </>
+            )}
+            
+            {isPending && (
+              <>
+                <ClockIcon className="h-16 w-16 text-warning mx-auto mb-4" />
+                <h1 className="text-3xl font-bold text-neutral-900 mb-2">Payment Processing</h1>
+                <p className="text-lg text-neutral-600">Your payment is being processed. Please wait a moment.</p>
+              </>
+            )}
+            
+            {isFailed && (
+              <>
+                <div className="h-16 w-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-red-600 text-2xl">✗</span>
+                </div>
+                <h1 className="text-3xl font-bold text-red-600 mb-2">Payment Failed</h1>
+                <p className="text-lg text-neutral-600">There was an issue processing your payment. Please try again.</p>
+              </>
             )}
           </div>
 
-          <div className="bg-blue-50 rounded-lg p-6">
-            <h3 className="font-semibold text-blue-900 mb-2">📧 Check Your Email</h3>
-            <p className="text-blue-700 text-sm">
-              We've sent you an email with instructions to set up your account. 
-              Please check your inbox (and spam folder) for the setup link.
-            </p>
-          </div>
+          {/* Payment Details */}
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Payment Details</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="font-medium">Payment ID:</span>
+                  <span className="font-mono text-sm">{paymentStatus.id}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-medium">Amount:</span>
+                  <span>€{paymentStatus.amount.value}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-medium">Status:</span>
+                  <span className={`font-medium ${
+                    isSuccess ? 'text-success' : 
+                    isPending ? 'text-warning' : 
+                    'text-red-600'
+                  }`}>
+                    {paymentStatus.status.charAt(0).toUpperCase() + paymentStatus.status.slice(1)}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-medium">Description:</span>
+                  <span>{paymentStatus.description}</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-          <div className="bg-yellow-50 rounded-lg p-6">
-            <h3 className="font-semibold text-yellow-900 mb-2">⏰ Important</h3>
-            <p className="text-yellow-700 text-sm">
-              Your account setup link will expire in 24 hours. 
-              If you need a new link, please contact our support team.
-            </p>
-          </div>
+          {/* Next Steps - Only show if payment is successful */}
+          {isSuccess && (
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle>What Happens Next?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <EnvelopeIcon className="h-6 w-6 text-primary-500 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-medium">Confirmation Email</h4>
+                      <p className="text-sm text-neutral-600">You'll receive a confirmation email with your submission details and next steps.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <DocumentTextIcon className="h-6 w-6 text-primary-500 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-medium">Account Creation</h4>
+                      <p className="text-sm text-neutral-600">Instructions to create your tracking account will be included in your email.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <TruckIcon className="h-6 w-6 text-primary-500 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-medium">Shipping Labels</h4>
+                      <p className="text-sm text-neutral-600">Pre-paid shipping labels and packaging instructions will be provided.</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
-          <div className="space-y-4">
-            <h3 className="font-semibold text-gray-900">What's Next?</h3>
-            <div className="text-left space-y-3">
-              <div className="flex items-start space-x-3">
-                <div className="w-6 h-6 bg-primary-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                <p className="text-sm text-gray-600">Check your email for the account setup link</p>
-              </div>
-              <div className="flex items-start space-x-3">
-                <div className="w-6 h-6 bg-primary-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                <p className="text-sm text-gray-600">Set up your username and password</p>
-              </div>
-              <div className="flex items-start space-x-3">
-                <div className="w-6 h-6 bg-primary-500 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                <p className="text-sm text-gray-600">Log in to your dashboard to manage your submissions</p>
-              </div>
-              <div className="flex items-start space-x-3">
-                <div className="w-6 h-6 bg-primary-500 text-white rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                <p className="text-sm text-gray-600">Follow our instructions to send in your cards</p>
-              </div>
-            </div>
-          </div>
+          {/* Submission Summary - Only show if we have submission data */}
+          {isSuccess && submissionData && (
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle>Submission Summary</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="font-medium">Service Level:</span>
+                    <span>{submissionData.selectedTier}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Number of Cards:</span>
+                    <span>{submissionData.cards?.length || 0}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Total Cost:</span>
+                    <span>€{submissionData.total}</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
+          {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/">
-              <Button variant="outline">
-                Return to Homepage
+            {isSuccess && (
+              <Button 
+                onClick={() => router.push('/track')}
+                className="flex-1 sm:flex-none"
+              >
+                Track Your Order
               </Button>
-            </Link>
-            <Link href="/contact">
-              <Button variant="primary">
-                Contact Support
+            )}
+            
+            {isFailed && (
+              <Button 
+                onClick={() => router.push('/submit')}
+                className="flex-1 sm:flex-none"
+              >
+                Try Again
               </Button>
-            </Link>
+            )}
+            
+            <Button 
+              variant="outline"
+              onClick={() => router.push('/')}
+              className="flex-1 sm:flex-none"
+            >
+              Back to Home
+            </Button>
           </div>
-        </CardContent>
-      </Card>
-    </div>
-  )
+
+          {/* Pending Payment Auto-refresh */}
+          {isPending && (
+            <div className="mt-6 text-center">
+              <p className="text-sm text-neutral-600">
+                This page will automatically refresh to check your payment status.
+                <br />
+                <button 
+                  onClick={checkPaymentStatus}
+                  className="text-primary-500 hover:text-primary-600 underline ml-1"
+                >
+                  Check now
+                </button>
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </Layout>
+  );
 }
