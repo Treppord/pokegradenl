@@ -86,38 +86,54 @@ export async function POST(request: NextRequest) {
           try {
             console.log('📧 WEBHOOK: Starting email sending process...');
             
+            // Validate customer email exists
+            const customerEmail = submissionData.shippingInfo?.pickupAddress?.email;
+            if (!customerEmail) {
+              console.log('⚠️ WEBHOOK: No customer email found in submission data');
+              throw new Error('Customer email missing from submission data');
+            }
+            
             // Send confirmation email to customer
             console.log('👤 WEBHOOK: Preparing customer confirmation email...');
             const userEmailTemplate = createUserConfirmationEmail(paymentId, submissionData);
-            const customerEmail = submissionData.shippingInfo.pickupAddress.email;
             
-            console.log('📤 WEBHOOK: Sending confirmation email to:', customerEmail);
-            await sendEmail({
+            console.log('📤 WEBHOOK: Sending confirmation email to customer:', customerEmail);
+            const customerResult = await sendEmail({
               to: customerEmail,
               subject: userEmailTemplate.subject,
               html: userEmailTemplate.html,
               text: userEmailTemplate.text,
             });
-            console.log('✅ WEBHOOK: Customer confirmation email sent successfully to:', customerEmail);
+            console.log('✅ WEBHOOK: Customer confirmation email sent successfully!', {
+              to: customerEmail,
+              messageId: customerResult.messageId
+            });
 
             // Send notification email to admin
             if (adminEmail) {
               console.log('🔔 WEBHOOK: Preparing admin notification email...');
               const adminEmailTemplate = createAdminNotificationEmail(paymentId, submissionData);
               
-              console.log('📤 WEBHOOK: Sending admin notification to:', adminEmail);
-              await sendEmail({
+              console.log('📤 WEBHOOK: Sending admin notification to admin:', adminEmail);
+              const adminResult = await sendEmail({
                 to: adminEmail,
                 subject: adminEmailTemplate.subject,
                 html: adminEmailTemplate.html,
                 text: adminEmailTemplate.text,
               });
-              console.log('✅ WEBHOOK: Admin notification email sent successfully to:', adminEmail);
+              console.log('✅ WEBHOOK: Admin notification email sent successfully!', {
+                to: adminEmail,
+                messageId: adminResult.messageId
+              });
             } else {
               console.log('⚠️ WEBHOOK: No admin email configured, skipping admin notification');
             }
             
-            console.log('🎉 WEBHOOK: All emails sent successfully!');
+            console.log('🎉 WEBHOOK: All emails sent successfully!', {
+              customerEmail,
+              adminEmail,
+              paymentId
+            });
             
           } catch (emailError) {
             console.error('❌ WEBHOOK: Email sending failed:', emailError);
