@@ -7,7 +7,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/Button';
 import { Input, Select, Textarea } from '@/components/ui/Input';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { PayPalButton } from '@/components/ui/PayPalButton';
+import { IdealButton } from '@/components/ui/IdealButton';
 import { 
   CheckCircleIcon,
   ClockIcon,
@@ -209,10 +209,10 @@ export default function SubmitPage() {
     return { items, customerInfo };
   };
 
-  const handlePaymentSuccess = (orderId: string) => {
+  const handlePaymentSuccess = (paymentId: string) => {
     // Store submission data in localStorage for later retrieval
     const submissionData = {
-      orderId,
+      paymentId,
       selectedTier,
       cards,
       shippingInfo,
@@ -224,7 +224,7 @@ export default function SubmitPage() {
       localStorage.setItem('lastSubmission', JSON.stringify(submissionData));
     }
     
-    router.push(`/payment/success?orderId=${orderId}`);
+    router.push(`/payment/success?paymentId=${paymentId}`);
   };
 
   const handlePaymentError = (error: any) => {
@@ -621,20 +621,22 @@ export default function SubmitPage() {
                           </ul>
                         </div>
                         
-                        <PayPalButton
-                          email={shippingInfo.pickupAddress.email}
+                        <IdealButton
+                          amount={calculateTotal()}
+                          description={`PokeGrade NL - ${serviceTiers.find(t => t.id === selectedTier)?.name} Grading Service`}
                           items={preparePaymentData().items}
                           customerInfo={preparePaymentData().customerInfo}
+                          submissionData={{
+                            selectedTier,
+                            cards,
+                            shippingInfo,
+                            total: calculateTotal(),
+                            timestamp: new Date().toISOString(),
+                          }}
                           onSuccess={handlePaymentSuccess}
                           onError={handlePaymentError}
                           onCancel={() => console.log('Payment cancelled by user')}
                         />
-                        
-                        <div className="mt-4 text-center">
-                          <p className="text-xs text-gray-500">
-                            Secure payment processed by PayPal. Your card information is never stored on our servers.
-                          </p>
-                        </div>
                       </div>
                     </div>
                   </CardContent>

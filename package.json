@@ -12,6 +12,7 @@
     "@auth/supabase-adapter": "^1.10.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@mollie/api-client": "^4.3.3",
     "@paypal/checkout-server-sdk": "^1.0.3",
     "@paypal/paypal-server-sdk": "^1.1.0",
     "@paypal/react-paypal-js": "^8.9.1",
