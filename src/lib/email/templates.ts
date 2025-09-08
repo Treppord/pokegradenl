@@ -21,13 +21,15 @@ interface SubmissionData {
 }
 
 export function createUserConfirmationEmail(
-  paymentId: string, 
+  paymentId: string,
   submissionData: SubmissionData
 ) {
   const { pickupAddress } = submissionData.shippingInfo;
-  
+
   return {
-    subject: `Payment Confirmed - Your PokeGrade NL Submission (Order #${paymentId.slice(-8)})`,
+    subject: `Payment Confirmed - Your PokeGrade NL Submission (Order #${paymentId.slice(
+      -8
+    )})`,
     html: `
       <!DOCTYPE html>
       <html>
@@ -61,34 +63,53 @@ export function createUserConfirmationEmail(
               <div class="card-list">
                 <h3>Order Summary</h3>
                 <p><strong>Order ID:</strong> #${paymentId.slice(-8)}</p>
-                <p><strong>Service Level:</strong> ${submissionData.selectedTier.charAt(0).toUpperCase() + submissionData.selectedTier.slice(1)}</p>
-                <p><strong>Number of Cards:</strong> ${submissionData.cards.length}</p>
+                <p><strong>Service Level:</strong> ${
+                  submissionData.selectedTier.charAt(0).toUpperCase() +
+                  submissionData.selectedTier.slice(1)
+                }</p>
+                <p><strong>Number of Cards:</strong> ${
+                  submissionData.cards.length
+                }</p>
                 
                 <h4>Your Cards:</h4>
-                ${submissionData.cards.map((card, index) => `
+                ${submissionData.cards
+                  .map(
+                    (card, index) => `
                   <div class="card-item">
-                    <strong>Card ${index + 1}:</strong> ${card.name || 'Unnamed'}<br>
-                    <small>Set: ${card.set} | Condition: ${card.condition} | Est. Value: €${card.estimatedValue || '0'}</small>
+                    <strong>Card ${index + 1}:</strong> ${
+                      card.name || "Unnamed"
+                    }<br>
+                    <small>Set: ${card.set} | Condition: ${
+                      card.condition
+                    } | Est. Value: €${card.estimatedValue || "0"}</small>
                   </div>
-                `).join('')}
+                `
+                  )
+                  .join("")}
                 
                 <div class="total">Total Paid: €${submissionData.total}</div>
               </div>
               
               <div class="next-steps">
-                <h3>📋 What Happens Next?</h3>
-                <ol>
-                  <li><strong>Account Setup:</strong> We'll create your tracking account within 24 hours</li>
-                  <li><strong>Shipping Labels:</strong> You'll receive pre-paid shipping labels via email</li>
-                  <li><strong>Pack & Ship:</strong> Carefully pack your cards and ship them to us</li>
-                  <li><strong>Grading Process:</strong> Professional grading begins once we receive your cards</li>
-                  <li><strong>Return Shipping:</strong> Your graded cards will be shipped back securely</li>
-                </ol>
+              <h3>📋 What Happens Next?</h3>
+              <ol>
+              <li><strong>Ship Your Cards:</strong> Send your cards to our Rotterdam facility using the address below</li>
+              <li><strong>We Receive & Process:</strong> Once we receive your package, the grading process will begin</li>
+              <li><strong>Progress Updates:</strong> You'll receive an email confirmation when grading starts</li>
+              <li><strong>Professional Grading:</strong> Our experts will carefully grade each card</li>
+              <li><strong>Return Shipping:</strong> Your graded cards will be shipped back to your address securely</li>
+              </ol>
               </div>
               
               <div class="next-steps">
-                <h3>📦 Shipping Information</h3>
-                <p><strong>Pickup Address:</strong><br>
+              <h3>📦 Shipping Information</h3>
+              <p><strong>Send your cards to:</strong><br>
+              PokeGrade Nederland<br>
+              Nieuwe Binnenweg 111B-02<br>
+              3014 GH Rotterdam<br>
+              Netherlands</p>
+                
+                <p><strong>Your Return Address:</strong><br>
                 ${pickupAddress.firstName} ${pickupAddress.lastName}<br>
                 ${pickupAddress.street}<br>
                 ${pickupAddress.postalCode} ${pickupAddress.city}<br>
@@ -97,7 +118,7 @@ export function createUserConfirmationEmail(
               
               <p>Track your order anytime at: <a href="https://pokegrade.nl/track">pokegrade.nl/track</a></p>
               
-              <p>Questions? Reply to this email or contact us at info@pokegrade.nl</p>
+              <p>Questions? Reply to this email or contact us at contact@pokegrade.nl</p>
               
               <p>Thank you for choosing PokeGrade Nederland!</p>
             </div>
@@ -121,18 +142,18 @@ Number of Cards: ${submissionData.cards.length}
 Total Paid: €${submissionData.total}
 
 What happens next:
-1. Account setup within 24 hours
-2. Shipping labels sent via email  
-3. Pack and ship your cards
+1. Ship your cards to: PokeGrade Nederland, Nieuwe Binnenweg 111B-02, 3014 GH Rotterdam, Netherlands
+2. Once we receive your package, the grading process will begin
+3. You'll receive an email confirmation when grading starts
 4. Professional grading process
-5. Secure return shipping
+5. Secure return shipping to your address
 
 Track your order: https://pokegrade.nl/track
 
 Questions? Contact info@pokegrade.nl
 
 Thank you for choosing PokeGrade Nederland!
-    `
+    `,
   };
 }
 
@@ -141,9 +162,11 @@ export function createAdminNotificationEmail(
   submissionData: SubmissionData
 ) {
   const { pickupAddress } = submissionData.shippingInfo;
-  
+
   return {
-    subject: `🎯 New Order Received - #${paymentId.slice(-8)} (€${submissionData.total})`,
+    subject: `🎯 New Order Received - #${paymentId.slice(-8)} (€${
+      submissionData.total
+    })`,
     html: `
       <!DOCTYPE html>
       <html>
@@ -176,7 +199,9 @@ export function createAdminNotificationEmail(
               
               <div class="info-box">
                 <h3>Customer Information</h3>
-                <p><strong>Name:</strong> ${pickupAddress.firstName} ${pickupAddress.lastName}</p>
+                <p><strong>Name:</strong> ${pickupAddress.firstName} ${
+      pickupAddress.lastName
+    }</p>
                 <p><strong>Email:</strong> ${pickupAddress.email}</p>
                 <p><strong>Phone:</strong> ${pickupAddress.phone}</p>
                 <p><strong>Address:</strong><br>
@@ -186,20 +211,31 @@ export function createAdminNotificationEmail(
               
               <div class="info-box">
                 <h3>Service Details</h3>
-                <p><strong>Service Level:</strong> ${submissionData.selectedTier.charAt(0).toUpperCase() + submissionData.selectedTier.slice(1)}</p>
-                <p><strong>Number of Cards:</strong> ${submissionData.cards.length}</p>
+                <p><strong>Service Level:</strong> ${
+                  submissionData.selectedTier.charAt(0).toUpperCase() +
+                  submissionData.selectedTier.slice(1)
+                }</p>
+                <p><strong>Number of Cards:</strong> ${
+                  submissionData.cards.length
+                }</p>
               </div>
               
               <div class="card-list">
                 <h3>Card Details</h3>
-                ${submissionData.cards.map((card, index) => `
+                ${submissionData.cards
+                  .map(
+                    (card, index) => `
                   <div class="card-item">
-                    <strong>${index + 1}. ${card.name || 'Unnamed Card'}</strong><br>
-                    Set: ${card.set || 'Not specified'} | 
-                    Condition: ${card.condition || 'Not specified'} | 
-                    Est. Value: €${card.estimatedValue || '0'}
+                    <strong>${index + 1}. ${
+                      card.name || "Unnamed Card"
+                    }</strong><br>
+                    Set: ${card.set || "Not specified"} | 
+                    Condition: ${card.condition || "Not specified"} | 
+                    Est. Value: €${card.estimatedValue || "0"}
                   </div>
-                `).join('')}
+                `
+                  )
+                  .join("")}
               </div>
               
               <div class="info-box">
@@ -238,15 +274,20 @@ ${pickupAddress.postalCode} ${pickupAddress.city}
 SERVICE: ${submissionData.selectedTier} (${submissionData.cards.length} cards)
 
 CARDS:
-${submissionData.cards.map((card, index) => 
-  `${index + 1}. ${card.name} - ${card.set} (${card.condition}) - €${card.estimatedValue}`
-).join('\n')}
+${submissionData.cards
+  .map(
+    (card, index) =>
+      `${index + 1}. ${card.name} - ${card.set} (${card.condition}) - €${
+        card.estimatedValue
+      }`
+  )
+  .join("\n")}
 
 ACTION REQUIRED:
 - Create customer account
 - Send shipping labels
 - Add to grading queue
 - Update order status
-    `
+    `,
   };
 }
