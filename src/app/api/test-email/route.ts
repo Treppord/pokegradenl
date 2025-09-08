@@ -4,17 +4,18 @@ import { sendEmail } from '@/lib/gmail/client';
 export async function GET(request: NextRequest) {
   console.log('🧪 TEST-EMAIL: Starting email test...');
   
+  // Check environment variables (declare outside try-catch for error handling)
+  const envCheck = {
+    hasGmailUser: !!process.env.GMAIL_USER_EMAIL,
+    hasAdminEmail: !!process.env.ADMIN_EMAIL,
+    hasClientId: !!process.env.GMAIL_CLIENT_ID,
+    hasClientSecret: !!process.env.GMAIL_CLIENT_SECRET,
+    hasRefreshToken: !!process.env.GMAIL_REFRESH_TOKEN,
+    gmailUserValue: process.env.GMAIL_USER_EMAIL,
+    adminEmailValue: process.env.ADMIN_EMAIL || process.env.GMAIL_USER_EMAIL
+  };
+  
   try {
-    // Check environment variables
-    const envCheck = {
-      hasGmailUser: !!process.env.GMAIL_USER_EMAIL,
-      hasAdminEmail: !!process.env.ADMIN_EMAIL,
-      hasClientId: !!process.env.GMAIL_CLIENT_ID,
-      hasClientSecret: !!process.env.GMAIL_CLIENT_SECRET,
-      hasRefreshToken: !!process.env.GMAIL_REFRESH_TOKEN,
-      gmailUserValue: process.env.GMAIL_USER_EMAIL,
-      adminEmailValue: process.env.ADMIN_EMAIL || process.env.GMAIL_USER_EMAIL
-    };
     
     console.log('🔧 TEST-EMAIL: Environment variables check:', envCheck);
     
